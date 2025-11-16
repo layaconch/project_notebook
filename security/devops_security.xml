@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="devops_notebook_rule_user" model="ir.rule">
+        <field name="name">DevOps Notebook - user access</field>
+        <field name="model_id" ref="model_devops_notebook"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">['|','|','|',('category_id.is_public','=',True),('owner_id','=',user.id),('category_id','=',False),('category_id.group_ids','in',user.groups_id.ids)]</field>
+    </record>
+
+    <record id="devops_notebook_rule_admin" model="ir.rule">
+        <field name="name">DevOps Notebook - admin full</field>
+        <field name="model_id" ref="model_devops_notebook"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record id="devops_notebook_cell_rule_user" model="ir.rule">
+        <field name="name">DevOps Notebook Cell - user access</field>
+        <field name="model_id" ref="model_devops_notebook_cell"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">['|','|','|',('notebook_id.category_id.is_public','=',True),('notebook_id.owner_id','=',user.id),('notebook_id.category_id','=',False),('notebook_id.category_id.group_ids','in',user.groups_id.ids)]</field>
+    </record>
+
+    <record id="devops_notebook_cell_rule_admin" model="ir.rule">
+        <field name="name">DevOps Notebook Cell - admin full</field>
+        <field name="model_id" ref="model_devops_notebook_cell"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+
+    <record id="devops_notebook_category_rule_user" model="ir.rule">
+        <field name="name">DevOps Notebook Category - user read</field>
+        <field name="model_id" ref="model_devops_notebook_category"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="domain_force">['|',('is_public','=',True),('group_ids','in',user.groups_id.ids)]</field>
+    </record>
+
+    <record id="devops_notebook_category_rule_admin" model="ir.rule">
+        <field name="name">DevOps Notebook Category - admin full</field>
+        <field name="model_id" ref="model_devops_notebook_category"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+</odoo>

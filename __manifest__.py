@@ -9,7 +9,10 @@
     "website": "https://example.com",
     "depends": ["base", "mail"],
     "data": [
+        "security/devops_groups.xml",
+        "security/devops_security.xml",
         "security/ir.model.access.csv",
+        "views/devops_security_views.xml",
         "views/devops_notebook_views.xml",
         "views/devops_data_source_views.xml",
         "views/devops_requirement_views.xml",

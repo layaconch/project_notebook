@@ -874,3 +874,30 @@ msgstr "记录上异常活动的类型。"
 #: model:ir.model.fields,field_description:devops.field_devops_data_source__username
 msgid "Username"
 msgstr "用户名"
+
+# 新增 DevOps 组与分类权限相关
+#. module: devops
+#: model:res.groups,name:devops.group_devops_user
+msgid "DevOps User"
+msgstr "DevOps 用户"
+
+#. module: devops
+#: model:res.groups,name:devops.group_devops_manager
+msgid "DevOps Manager"
+msgstr "DevOps 管理员"
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_groups
+#: model:ir.ui.menu,name:devops.menu_devops_groups
+msgid "DevOps Groups"
+msgstr "DevOps 用户组"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_category__group_ids
+msgid "Allowed User Groups"
+msgstr "允许访问的用户组"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_notebook_category__group_ids
+msgid "Groups allowed to access."
+msgstr "允许访问的用户组。"

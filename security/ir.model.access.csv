@@ -4,3 +4,5 @@ devops_notebook_cell_user_access,devops.notebook.cell.user,model_devops_notebook
 devops_data_source_user_access,devops.data.source.user,model_devops_data_source,base.group_system,1,1,1,1
 devops_requirement_user_access,devops.requirement.user,model_devops_requirement,base.group_user,1,1,1,1
 devops_issue_user_access,devops.issue.user,model_devops_issue,base.group_user,1,1,1,1
+devops_notebook_category_user_access,devops.notebook.category.user,model_devops_notebook_category,base.group_user,1,0,0,0
+devops_notebook_category_admin_access,devops.notebook.category.admin,model_devops_notebook_category,base.group_system,1,1,1,1

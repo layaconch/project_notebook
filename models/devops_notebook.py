@@ -11,6 +11,18 @@ from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval
 
 
+class DevOpsNotebookCategory(models.Model):
+    _name = "devops.notebook.category"
+    _description = "Notebook Category"
+    _order = "name"
+
+    name = fields.Char(required=True)
+    is_public = fields.Boolean(string="Public", help="Visible and runnable by all users")
+    group_ids = fields.Many2many(
+        "res.groups", string="Allowed User Groups", help="Groups allowed to access."
+    )
+
+
 class DevOpsNotebook(models.Model):
     _name = "devops.notebook"
     _description = "DevOps Notebook"
@@ -28,6 +40,9 @@ class DevOpsNotebook(models.Model):
         "devops.data.source",
         string="Data Source",
         default=lambda self: self._default_data_source(),
+    )
+    category_id = fields.Many2one(
+        "devops.notebook.category", string="Category", tracking=True
     )
     cell_total = fields.Integer(compute="_compute_stats", store=True)
     execution_count = fields.Integer(compute="_compute_stats", store=True)

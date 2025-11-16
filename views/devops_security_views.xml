@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="action_devops_groups" model="ir.actions.act_window">
+        <field name="name">DevOps Groups</field>
+        <field name="res_model">res.groups</field>
+        <field name="domain">[('category_id', '=', ref('devops.module_category_devops'))]</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'default_category_id': ref('devops.module_category_devops')}</field>
+    </record>
+</odoo>

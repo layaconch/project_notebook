@@ -7,6 +7,7 @@
             <list string="Notebooks" default_order="write_date desc">
                 <field name="name"/>
                 <field name="data_source_id"/>
+                <field name="category_id"/>
                 <field name="owner_id"/>
                 <field name="cell_total"/>
                 <field name="execution_count"/>
@@ -31,6 +32,7 @@
                             <field name="name"/>
                             <field name="owner_id" options="{'no_create': True}"/>
                             <field name="data_source_id" options="{'no_create': False}"/>
+                            <field name="category_id" options="{'no_create': False}"/>
                         </group>
                         <group>
                             <field name="cell_total" readonly="1"/>
@@ -100,8 +102,11 @@
                 <field name="name"/>
                 <field name="owner_id"/>
                 <filter name="has_failures" string="Has Errors" domain="[('failed_cells', '>', 0)]"/>
+                <field name="category_id"/>
+                <filter name="public_category" string="Public" domain="[('category_id.is_public', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                    <filter name="group_category" string="Category" context="{'group_by': 'category_id'}"/>
                 </group>
             </search>
         </field>
@@ -153,10 +158,45 @@
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="data_source_id"/>
+                <field name="category_id"/>
                 <field name="cell_total"/>
                 <field name="last_run"/>
             </list>
         </field>
+    </record>
+
+    <record id="view_devops_notebook_category_tree" model="ir.ui.view">
+        <field name="name">devops.notebook.category.tree</field>
+        <field name="model">devops.notebook.category</field>
+        <field name="arch" type="xml">
+            <list string="Notebook Categories">
+                <field name="name"/>
+                <field name="is_public"/>
+                <field name="group_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_category_form" model="ir.ui.view">
+        <field name="name">devops.notebook.category.form</field>
+        <field name="model">devops.notebook.category</field>
+        <field name="arch" type="xml">
+            <form string="Notebook Category">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="is_public"/>
+                        <field name="group_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_devops_notebook_category" model="ir.actions.act_window">
+        <field name="name">Notebook Categories</field>
+        <field name="res_model">devops.notebook.category</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="view_devops_notebook_kanban" model="ir.ui.view">
