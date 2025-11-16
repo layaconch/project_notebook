@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_devops_notebook_list" model="ir.ui.view">
+        <field name="name">devops.notebook.list</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <list string="Notebooks" default_order="write_date desc">
+                <field name="name"/>
+                <field name="data_source_id"/>
+                <field name="owner_id"/>
+                <field name="cell_total"/>
+                <field name="execution_count"/>
+                <field name="failed_cells"/>
+                <field name="last_run"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_form" model="ir.ui.view">
+        <field name="name">devops.notebook.form</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <form string="Notebook" class="o_devops_notebook">
+                <header>
+                    <button name="action_run_all" type="object" string="Run All" class="btn-primary"/>
+                    <field name="data_source_id" readonly="1" class="ms-2" optional="show"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="owner_id" options="{'no_create': True}"/>
+                            <field name="data_source_id" options="{'no_create': False}"/>
+                        </group>
+                        <group>
+                            <field name="cell_total" readonly="1"/>
+                            <field name="execution_count" readonly="1"/>
+                            <field name="failed_cells" readonly="1"/>
+                            <field name="last_run" readonly="1"/>
+                        </group>
+                    </group>
+                    <div class="o_devops_nb_workspace">
+                        <div class="o_devops_nb_sidebar">
+                            <field name="description" placeholder="Notebook description, tags..."/>
+                            <field name="cell_ids" readonly="1">
+                                <list string="Outline">
+                                    <field name="sequence"/>
+                                    <field name="cell_type"/>
+                                    <field name="status"/>
+                                </list>
+                            </field>
+                        </div>
+                        <div class="o_devops_nb_editor">
+                            <field name="cell_ids" context="{'default_notebook_id': id}">
+                                <kanban class="o_devops_nb_cells" quick_create="false" editable="bottom" default_group_by="">
+                                    <field name="sequence"/>
+                                    <field name="cell_label"/>
+                                    <field name="cell_type"/>
+                                    <field name="input_source"/>
+                                    <field name="output_html"/>
+                                    <field name="status"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="o_nb_cell">
+                                                <div class="o_nb_cell_header">
+                                                    <span class="badge text-bg-secondary">
+                                                        <field name="cell_label"/>
+                                                    </span>
+                                                    <span class="ms-2">
+                                                        <field name="cell_type"/>
+                                                    </span>
+                                                    <button name="action_run" type="object" string="Run" class="btn btn-sm btn-primary float-end"/>
+                                                </div>
+                                                <div class="o_nb_cell_body">
+                                                    <field name="input_source" widget="text" class="o_nb_input"/>
+                                                </div>
+                                                <div class="o_nb_cell_output">
+                                                    <field name="output_html" widget="html" readonly="1" class="o_nb_output_html"/>
+                                                </div>
+                                                <div class="o_nb_cell_status">
+                                                    <field name="status" widget="badge"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_search" model="ir.ui.view">
+        <field name="name">devops.notebook.search</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <search string="Notebooks">
+                <field name="name"/>
+                <field name="owner_id"/>
+                <filter name="has_failures" string="Has Errors" domain="[('failed_cells', '>', 0)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_cell_list" model="ir.ui.view">
+        <field name="name">devops.notebook.cell.list</field>
+        <field name="model">devops.notebook.cell</field>
+        <field name="arch" type="xml">
+            <list string="Notebook Cells" default_order="notebook_id,sequence">
+                <field name="notebook_id"/>
+                <field name="sequence"/>
+                <field name="cell_type"/>
+                <field name="status"/>
+                <field name="last_run"/>
+                <button name="action_run" string="Run" type="object" class="btn-link"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_cell_form" model="ir.ui.view">
+        <field name="name">devops.notebook.cell.form</field>
+        <field name="model">devops.notebook.cell</field>
+        <field name="arch" type="xml">
+            <form string="Notebook Cell">
+                <header>
+                    <button name="action_run" string="Run" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="notebook_id"/>
+                        <field name="sequence"/>
+                        <field name="cell_type"/>
+                        <field name="status" readonly="1"/>
+                        <field name="elapsed_ms" readonly="1"/>
+                    </group>
+                    <field name="input_source" widget="text"/>
+                    <field name="output_html" widget="html" readonly="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_list" model="ir.ui.view">
+        <field name="name">devops.notebook.list</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <list string="Notebooks" js_class="o_devops_nb_kanban" default_order="write_date desc">
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="data_source_id"/>
+                <field name="cell_total"/>
+                <field name="last_run"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_kanban" model="ir.ui.view">
+        <field name="name">devops.notebook.kanban</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record_card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <field name="name"/>
+                                <span class="badge text-bg-secondary"><field name="owner_id"/></span>
+                            </div>
+                            <div class="text-muted small mt-1">
+                                <span>Data Source:</span> <field name="data_source_id"/>
+                                <span>Cells:</span> <field name="cell_total"/>
+                                <span class="ms-2">Success:</span> <field name="execution_count"/>
+                                <span class="ms-2">Failed:</span> <field name="failed_cells"/>
+                            </div>
+                            <div class="text-muted small">
+                                <span>Last run:</span> <field name="last_run"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_graph" model="ir.ui.view">
+        <field name="name">devops.notebook.graph</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <graph string="Notebooks" type="bar">
+                <field name="owner_id" type="row"/>
+                <field name="cell_total" type="measure"/>
+                <field name="execution_count" type="measure"/>
+                <field name="failed_cells" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_pivot" model="ir.ui.view">
+        <field name="name">devops.notebook.pivot</field>
+        <field name="model">devops.notebook</field>
+        <field name="arch" type="xml">
+            <pivot string="Notebooks">
+                <field name="owner_id" type="row"/>
+                <field name="name" type="row"/>
+                <field name="cell_total" type="measure"/>
+                <field name="execution_count" type="measure"/>
+                <field name="failed_cells" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_devops_notebook" model="ir.actions.act_window">
+        <field name="name">Notebooks</field>
+        <field name="res_model">devops.notebook</field>
+        <field name="view_mode">list,form,kanban,graph,pivot</field>
+        <field name="context">{'default_owner_id': uid}</field>
+    </record>
+
+</odoo>

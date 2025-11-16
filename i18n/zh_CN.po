@@ -1,0 +1,876 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* devops
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20251106\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-15 01:41+0000\n"
+"PO-Revision-Date: 2025-11-15 01:41+0000\n"
+"Last-Translator: DevOps Team\n"
+"Language-Team: zh_CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_data_source__csv_path
+msgid "Absolute path to CSV file when type is CSV."
+msgstr "当类型为 CSV 时的绝对文件路径。"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_needaction
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_needaction
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_needaction
+msgid "Action Needed"
+msgstr "需要操作"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_ids
+msgid "Activities"
+msgstr "活动"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_exception_decoration
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_exception_decoration
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "活动异常标记"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_state
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_state
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_state
+msgid "Activity State"
+msgstr "活动状态"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_type_icon
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_type_icon
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "活动类型图标"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Approve"
+msgstr "审核"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__approved
+msgid "Approved"
+msgstr "已批准"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_attachment_count
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_attachment_count
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_attachment_count
+msgid "Attachment Count"
+msgstr "附件数量"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__3
+msgid "Blocker"
+msgstr "阻塞级"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__bugfix
+msgid "Bug Fix"
+msgstr "缺陷修复"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__csv
+msgid "CSV File"
+msgstr "CSV 文件"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV file reachable: %s"
+msgstr "CSV 文件可访问：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV file read failed: %s"
+msgstr "CSV 文件读取失败：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV path does not exist."
+msgstr "CSV 路径不存在。"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__cell_label
+msgid "Cell Label"
+msgstr "单元标签"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__cell_total
+msgid "Cell Total"
+msgstr "单元总数"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__cell_type
+msgid "Cell Type"
+msgstr "单元类型"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__cell_ids
+msgid "Cells"
+msgstr "单元"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Close"
+msgstr "关闭"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__closed
+msgid "Closed"
+msgstr "已关闭"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__connection_string
+msgid "Connection String"
+msgstr "连接字符串"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Connection Test"
+msgstr "连接测试"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_issue__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_issue__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__create_date
+msgid "Created on"
+msgstr "创建日期"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__critical
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__3
+msgid "Critical"
+msgstr "致命"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__csv_path
+msgid "Csv Path"
+msgstr "CSV 路径"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__data_source_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_data_source_form
+msgid "Data Source"
+msgstr "数据源"
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_data_source
+#: model:ir.ui.menu,name:devops.menu_devops_data_sources
+msgid "Data Sources"
+msgstr "数据源"
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_settings
+msgid "Settings"
+msgstr "设置"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__database
+msgid "Database"
+msgstr "数据库"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__deadline
+msgid "Deadline"
+msgstr "截止日期"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__done
+msgid "Delivered"
+msgstr "已交付"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__description
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__description
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__description
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Description"
+msgstr "描述"
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_data_source
+msgid "DevOps Data Source"
+msgstr "DevOps 数据源"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.res_config_settings_view_form_devops
+msgid "DevOps"
+msgstr "DevOps"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_res_config_settings__devops_default_data_source_id
+msgid "Default DevOps Data Source"
+msgstr "默认 DevOps 数据源"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.res_config_settings_view_form_devops
+msgid "Default data source used when creating new DevOps notebooks."
+msgstr "创建新的 DevOps 笔记本时默认使用的数据源。"
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_issue
+msgid "DevOps Issue"
+msgstr "DevOps 问题"
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_notebook
+msgid "DevOps Notebook"
+msgstr "DevOps 笔记本"
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_notebook_cell
+msgid "DevOps Notebook Cell"
+msgstr "DevOps 笔记本单元"
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_root
+msgid "DevOps Platform"
+msgstr "DevOps 平台"
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_requirement
+msgid "DevOps Requirement"
+msgstr "DevOps 需求"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_issue__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Done"
+msgstr "完成"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__draft
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_search
+msgid "Draft"
+msgstr "草稿"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__elapsed_ms
+msgid "Elapsed (ms)"
+msgstr "耗时（毫秒）"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__error
+msgid "Error"
+msgstr "错误"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__execution_count
+msgid "Execution Count"
+msgstr "执行次数"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__failed_cells
+msgid "Failed Cells"
+msgstr "失败单元"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__feature
+msgid "Feature"
+msgstr "功能"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_follower_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_follower_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_follower_ids
+msgid "Followers"
+msgstr "关注者"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_partner_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_partner_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "关注的联系人"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_type_icon
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_type_icon
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font Awesome 图标，例如 fa-tasks"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Group By"
+msgstr "分组"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Has Errors"
+msgstr "有错误"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__has_message
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__has_message
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__has_message
+msgid "Has Message"
+msgstr "有消息"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__2
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__2
+msgid "High"
+msgstr "高"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__host
+msgid "Host"
+msgstr "主机"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__id
+#: model:ir.model.fields,field_description:devops.field_devops_issue__id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__id
+msgid "ID"
+msgstr "ID"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_exception_icon
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_exception_icon
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_exception_icon
+msgid "Icon"
+msgstr "图标"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_exception_icon
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_exception_icon
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "用于标识异常活动的图标。"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_needaction
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_needaction
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "选中时表示有新消息需要您处理。"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_has_error
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_has_error
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "选中时表示存在消息投递错误。"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__improvement
+msgid "Improvement"
+msgstr "改进"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__in_progress
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__in_progress
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_search
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_search
+msgid "In Progress"
+msgstr "进行中"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__input_source
+msgid "Input"
+msgstr "输入"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_is_follower
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_is_follower
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_is_follower
+msgid "Is Follower"
+msgstr "是否关注"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Issue"
+msgstr "问题"
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_issue
+#: model:ir.ui.menu,name:devops.menu_devops_issues
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Issues"
+msgstr "问题"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__last_run
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__last_run
+msgid "Last Run"
+msgstr "最后运行时间"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_issue__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_issue__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_data_source__connection_string
+msgid "Legacy connection string."
+msgstr "旧版连接字符串。"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__0
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__0
+msgid "Low"
+msgstr "低"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "MSSQL connection OK: %s"
+msgstr "MSSQL 连接成功：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "MSSQL connection failed: %s"
+msgstr "MSSQL 连接失败：%s"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__major
+msgid "Major"
+msgstr "严重"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__markdown
+msgid "Markdown"
+msgstr "Markdown"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__1
+msgid "Medium"
+msgstr "中"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_has_error
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_has_error
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_has_error
+msgid "Message Delivery error"
+msgstr "消息投递错误"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_ids
+msgid "Messages"
+msgstr "消息"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__mssql
+msgid "Microsoft SQL Server"
+msgstr "Microsoft SQL Server"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__minor
+msgid "Minor"
+msgstr "轻微"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__my_activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__my_activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "我的活动截止日期"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__name
+#: model:ir.model.fields,field_description:devops.field_devops_issue__name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__name
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__name
+msgid "Name"
+msgstr "名称"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "下一活动截止日期"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_summary
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_summary
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_summary
+msgid "Next Activity Summary"
+msgstr "下一活动摘要"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_type_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_type_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_type_id
+msgid "Next Activity Type"
+msgstr "下一活动类型"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__1
+msgid "Normal"
+msgstr "正常"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__notebook_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Notebook"
+msgstr "笔记本"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_form
+msgid "Notebook Cell"
+msgstr "笔记本单元"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_list
+msgid "Notebook Cells"
+msgstr "笔记本单元"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Notebook description, tags..."
+msgstr "笔记本说明、标签..."
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_notebook
+#: model:ir.ui.menu,name:devops.menu_devops_notebooks
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_list
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Notebooks"
+msgstr "笔记本"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_needaction_counter
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_needaction_counter
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_needaction_counter
+msgid "Number of Actions"
+msgstr "操作数量"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_has_error_counter
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_has_error_counter
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_has_error_counter
+msgid "Number of errors"
+msgstr "错误数量"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_needaction_counter
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_needaction_counter
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "需要处理的消息数量"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_has_error_counter
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_has_error_counter
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "投递错误的消息数量"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__open
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_search
+msgid "Open"
+msgstr "打开"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__oracle
+msgid "Oracle"
+msgstr "Oracle"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Oracle connection OK: %s"
+msgstr "Oracle 连接成功：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Oracle connection failed: %s"
+msgstr "Oracle 连接失败：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Oracle test not available: %s. Install python-oracledb."
+msgstr "无法进行 Oracle 测试：%s。请安装 python-oracledb。"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Outline"
+msgstr "提纲"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__output_text
+msgid "Output (raw)"
+msgstr "原始输出"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__owner_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__owner_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__owner_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Owner"
+msgstr "负责人"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__password
+msgid "Password"
+msgstr "密码"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__pending
+msgid "Pending"
+msgstr "待处理"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__port
+msgid "Port"
+msgstr "端口"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__postgresql
+msgid "PostgreSQL"
+msgstr "PostgreSQL"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "PostgreSQL connection OK: %s"
+msgstr "PostgreSQL 连接成功：%s"
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "PostgreSQL connection failed: %s"
+msgstr "PostgreSQL 连接失败：%s"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__priority
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__priority
+msgid "Priority"
+msgstr "优先级"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__python
+msgid "Python"
+msgstr "Python"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__issue_ids
+msgid "Related Issues"
+msgstr "关联问题"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__output_html
+msgid "Rendered Output"
+msgstr "渲染输出"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__reporter_id
+msgid "Reporter"
+msgstr "报告人"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Reproduction"
+msgstr "复现描述"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__reproduction_steps
+msgid "Reproduction Steps"
+msgstr "复现步骤"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__requester_id
+msgid "Requester"
+msgstr "提出人"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__requirement_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Requirement"
+msgstr "需求"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__requirement_type
+msgid "Requirement Type"
+msgstr "需求类型"
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_requirement
+#: model:ir.ui.menu,name:devops.menu_devops_requirements
+msgid "Requirements"
+msgstr "需求"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__research
+msgid "Research"
+msgstr "研究"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__resolution
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Resolution"
+msgstr "解决方案"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Resolve"
+msgstr "解决"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__resolved
+msgid "Resolved"
+msgstr "已解决"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_user_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_user_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_user_id
+msgid "Responsible User"
+msgstr "负责人"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_form
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_list
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Run"
+msgstr "运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Run All"
+msgstr "全部运行"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__sql
+msgid "SQL"
+msgstr "SQL"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__schema
+msgid "Schema"
+msgstr "模式"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__sequence
+msgid "Sequence"
+msgstr "序号"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__severity
+msgid "Severity"
+msgstr "严重程度"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__source_type
+msgid "Source Type"
+msgstr "来源类型"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Start"
+msgstr "开始"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__state
+msgid "State"
+msgstr "状态"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__status
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__status
+msgid "Status"
+msgstr "状态"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_state
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_state
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"基于活动的状态\n"
+"逾期：截止日期已过\n"
+"今天：活动日期为今天\n"
+"计划中：未来的活动。"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__success
+msgid "Success"
+msgstr "成功"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__tag_ids
+msgid "Tags"
+msgstr "标签"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_data_source_form
+msgid "Test Connection"
+msgstr "测试连接"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_exception_decoration
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_exception_decoration
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "记录上异常活动的类型。"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__username
+msgid "Username"
+msgstr "用户名"

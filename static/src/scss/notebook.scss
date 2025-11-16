@@ -1,0 +1,130 @@
+.o_devops_notebook {
+  background: #f5f6fa;
+  // Make the sheet span full width for DevOps notebook form
+  .o_form_sheet_bg,
+  .o_form_sheet {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .o_devops_nb_workspace {
+    display: flex;
+    gap: 8px; // tighter spacing between sidebar and editor
+  }
+  .o_devops_nb_sidebar {
+    flex: 0 0 10%;
+    min-width: 220px;
+    max-width: 400px;
+    background: #fff;
+    border-right: 4px solid #d4d4d8;
+    padding: 12px;
+    resize: horizontal;
+    overflow: auto;
+    cursor: col-resize;
+  }
+  .o_devops_nb_editor {
+    flex: 1;
+    background: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    min-width: 0; // allow content to fill remaining space without extra blank area
+  }
+  .o_nb_sequence {
+    width: 40px;
+  }
+  .o_nb_type .o_badge {
+    text-transform: uppercase;
+  }
+  .o_nb_input textarea {
+    font-family: 'Source Code Pro', monospace;
+    min-height: 90px;
+    background: #f0f6ff; // light blue to distinguish input area
+    border-radius: 4px;
+    border: 1px solid #d6e4ff;
+    padding: 10px;
+  }
+  .o_nb_output_html {
+    border-left: 3px solid #ccc;
+    padding-left: 12px;
+  }
+  .o_nb_run {
+    margin-top: 8px;
+  }
+  .o_devops_nb_cells {
+    justify-content: flex-start;
+    gap: 0;
+    .o_nb_cell {
+      display: block;
+      width: 100%;
+      margin-bottom: 16px;
+      border: 1px solid #e1e5ea;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .o_kanban_record {
+      width: 100% !important;
+      margin-right: 0;
+      float: none;
+    }
+    .o_kanban_ghost {
+      display: none !important; // hide ghost placeholders that create empty space
+    }
+    .o_kanban_group {
+      width: 100% !important;
+      margin-right: 0;
+    }
+    .o_kanban_column {
+      width: 100% !important;
+    }
+  }
+}
+
+.o_devops_file_editor {
+  .o_devops_file_layout {
+    display: flex;
+    gap: 16px;
+    min-height: 500px;
+  }
+  .o_devops_file_tree {
+    flex: 0 0 30%;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+  }
+  .o_devops_file_viewer {
+    flex: 1;
+  }
+  .o_devops_code_editor textarea {
+    min-height: 400px;
+    font-family: 'Source Code Pro', monospace;
+  }
+}
+
+.o_devops_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  th,
+  td {
+    border: 1px solid #e5e7eb;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+    max-width: 240px;
+    word-break: break-word;
+  }
+  th {
+    background: #f3f4f6;
+    font-weight: 600;
+    color: #111827;
+  }
+  tr:nth-child(even) td {
+    background: #fafafa;
+  }
+  tr:hover td {
+    background: #eef2ff;
+  }
+}

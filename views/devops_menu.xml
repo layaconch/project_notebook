@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_devops_root" name="DevOps Platform" sequence="10" groups="base.group_user"/>
+    <menuitem id="menu_devops_notebooks" name="Notebooks" parent="menu_devops_root" action="action_devops_notebook" sequence="10"/>
+    <menuitem id="menu_devops_requirements" name="Requirements" parent="menu_devops_root" action="action_devops_requirement" sequence="20"/>
+    <menuitem id="menu_devops_issues" name="Issues" parent="menu_devops_root" action="action_devops_issue" sequence="30"/>
+    <menuitem id="menu_devops_settings" name="Settings" parent="menu_devops_root" sequence="40" groups="base.group_user"/>
+    <menuitem id="menu_devops_data_sources" name="Data Sources" parent="menu_devops_settings"
+              action="action_devops_data_source" sequence="10" groups="base.group_system"/>
+</odoo>

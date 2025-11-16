@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_devops_data_source_tree" model="ir.ui.view">
+        <field name="name">devops.data.source.tree</field>
+        <field name="model">devops.data.source</field>
+        <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <field name="source_type"/>
+                    <field name="host"/>
+                    <field name="database"/>
+                </list>
+        </field>
+    </record>
+
+    <record id="view_devops_data_source_form" model="ir.ui.view">
+        <field name="name">devops.data.source.form</field>
+        <field name="model">devops.data.source</field>
+        <field name="arch" type="xml">
+            <form string="Data Source">
+                <header>
+                    <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="source_type"/>
+                        <field name="host"/>
+                        <field name="port"/>
+                        <field name="database"/>
+                        <field name="schema" modifiers="{'invisible': [('source_type', '=', 'mssql')]}"/>
+                        <field name="username"/>
+                        <field name="password" password="True"/>
+                        <field name="connection_string"/>
+                        <field name="csv_path"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_devops_data_source" model="ir.actions.act_window">
+        <field name="name">Data Sources</field>
+        <field name="res_model">devops.data.source</field>
+        <field name="view_mode">list,form</field>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,845 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* devops
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20251106\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-15 01:41+0000\n"
+"PO-Revision-Date: 2025-11-15 01:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_data_source__csv_path
+msgid "Absolute path to CSV file when type is CSV."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_needaction
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_needaction
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_exception_decoration
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_exception_decoration
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_state
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_state
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_type_icon
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_type_icon
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Approve"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__approved
+msgid "Approved"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_attachment_count
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_attachment_count
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__3
+msgid "Blocker"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__bugfix
+msgid "Bug Fix"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__csv
+msgid "CSV File"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV file reachable: %s"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV file read failed: %s"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "CSV path does not exist."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__cell_label
+msgid "Cell Label"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__cell_total
+msgid "Cell Total"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__cell_type
+msgid "Cell Type"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__cell_ids
+msgid "Cells"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Close"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__closed
+msgid "Closed"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__connection_string
+msgid "Connection String"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Connection Test"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_issue__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__create_uid
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_issue__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__create_date
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__critical
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__3
+msgid "Critical"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__csv_path
+msgid "Csv Path"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__data_source_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_data_source_form
+msgid "Data Source"
+msgstr ""
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_data_source
+#: model:ir.ui.menu,name:devops.menu_devops_data_sources
+msgid "Data Sources"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__database
+msgid "Database"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__deadline
+msgid "Deadline"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__done
+msgid "Delivered"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__description
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__description
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__description
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Description"
+msgstr ""
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_data_source
+msgid "DevOps Data Source"
+msgstr ""
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_issue
+msgid "DevOps Issue"
+msgstr ""
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_notebook
+msgid "DevOps Notebook"
+msgstr ""
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_notebook_cell
+msgid "DevOps Notebook Cell"
+msgstr ""
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_root
+msgid "DevOps Platform"
+msgstr ""
+
+#. module: devops
+#: model:ir.model,name:devops.model_devops_requirement
+msgid "DevOps Requirement"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_issue__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__display_name
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Done"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__draft
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_search
+msgid "Draft"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__elapsed_ms
+msgid "Elapsed (ms)"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__error
+msgid "Error"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__execution_count
+msgid "Execution Count"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__failed_cells
+msgid "Failed Cells"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__feature
+msgid "Feature"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_follower_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_follower_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_partner_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_partner_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_type_icon
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_type_icon
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Group By"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Has Errors"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__has_message
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__has_message
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__2
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__2
+msgid "High"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__host
+msgid "Host"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__id
+#: model:ir.model.fields,field_description:devops.field_devops_issue__id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__id
+msgid "ID"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_exception_icon
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_exception_icon
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_exception_icon
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_exception_icon
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_needaction
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_needaction
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_has_error
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_has_error
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__improvement
+msgid "Improvement"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__in_progress
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__state__in_progress
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_search
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_search
+msgid "In Progress"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__input_source
+msgid "Input"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_is_follower
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_is_follower
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Issue"
+msgstr ""
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_issue
+#: model:ir.ui.menu,name:devops.menu_devops_issues
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Issues"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__last_run
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__last_run
+msgid "Last Run"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_issue__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__write_uid
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_issue__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__write_date
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_data_source__connection_string
+msgid "Legacy connection string."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__0
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__0
+msgid "Low"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "MSSQL connection OK: %s"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "MSSQL connection failed: %s"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__major
+msgid "Major"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__markdown
+msgid "Markdown"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__priority__1
+msgid "Medium"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_has_error
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_has_error
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_ids
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_ids
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__mssql
+msgid "Microsoft SQL Server"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__severity__minor
+msgid "Minor"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__my_activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__my_activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__name
+#: model:ir.model.fields,field_description:devops.field_devops_issue__name
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__name
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__name
+msgid "Name"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_date_deadline
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_summary
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_summary
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_type_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_type_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__priority__1
+msgid "Normal"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__notebook_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Notebook"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_form
+msgid "Notebook Cell"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_list
+msgid "Notebook Cells"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Notebook description, tags..."
+msgstr ""
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_notebook
+#: model:ir.ui.menu,name:devops.menu_devops_notebooks
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_list
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Notebooks"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_needaction_counter
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_needaction_counter
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__message_has_error_counter
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__message_has_error_counter
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_needaction_counter
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_needaction_counter
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__message_has_error_counter
+#: model:ir.model.fields,help:devops.field_devops_notebook__message_has_error_counter
+#: model:ir.model.fields,help:devops.field_devops_requirement__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__open
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_search
+msgid "Open"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__oracle
+msgid "Oracle"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Oracle driver available."
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "Oracle test not available: %s. Install cx_Oracle."
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Outline"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__output_text
+msgid "Output (raw)"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__owner_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__owner_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__owner_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_search
+msgid "Owner"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__password
+msgid "Password"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__pending
+msgid "Pending"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__port
+msgid "Port"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_data_source__source_type__postgresql
+msgid "PostgreSQL"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "PostgreSQL connection OK: %s"
+msgstr ""
+
+#. module: devops
+#. odoo-python
+#: code:addons/devops/models/devops_data_source.py:0
+msgid "PostgreSQL connection failed: %s"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__priority
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__priority
+msgid "Priority"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__python
+msgid "Python"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__issue_ids
+msgid "Related Issues"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__output_html
+msgid "Rendered Output"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__reporter_id
+msgid "Reporter"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Reproduction"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__reproduction_steps
+msgid "Reproduction Steps"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__requester_id
+msgid "Requester"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__requirement_id
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Requirement"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__requirement_type
+msgid "Requirement Type"
+msgstr ""
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_requirement
+#: model:ir.ui.menu,name:devops.menu_devops_requirements
+msgid "Requirements"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_requirement__requirement_type__research
+msgid "Research"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__resolution
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Resolution"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+msgid "Resolve"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_issue__status__resolved
+msgid "Resolved"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__activity_user_id
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__activity_user_id
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_form
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_cell_list
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Run"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_form
+msgid "Run All"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__cell_type__sql
+msgid "SQL"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__schema
+msgid "Schema"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__severity
+msgid "Severity"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__source_type
+msgid "Source Type"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_issue_form
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_requirement_form
+msgid "Start"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__state
+msgid "State"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_issue__status
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_cell__status
+msgid "Status"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_state
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_state
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_cell__status__success
+msgid "Success"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_requirement__tag_ids
+msgid "Tags"
+msgstr ""
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_data_source_form
+msgid "Test Connection"
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,help:devops.field_devops_issue__activity_exception_decoration
+#: model:ir.model.fields,help:devops.field_devops_notebook__activity_exception_decoration
+#: model:ir.model.fields,help:devops.field_devops_requirement__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_data_source__username
+msgid "Username"
+msgstr ""
