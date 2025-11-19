@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Training-specific groups no longer used; kept for backward compatibility but inactive -->
+</odoo>

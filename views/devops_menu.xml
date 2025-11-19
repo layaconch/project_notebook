@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <menuitem id="menu_devops_root" name="DevOps Platform" sequence="10" groups="base.group_user"/>
-    <menuitem id="menu_devops_notebooks" name="Notebooks" parent="menu_devops_root" action="action_devops_notebook" sequence="10"/>
-    <menuitem id="menu_devops_requirements" name="Requirements" parent="menu_devops_root" action="action_devops_requirement" sequence="20"/>
-    <menuitem id="menu_devops_issues" name="Issues" parent="menu_devops_root" action="action_devops_issue" sequence="30"/>
-    <menuitem id="menu_devops_settings" name="Settings" parent="menu_devops_root" sequence="40" groups="base.group_user"/>
-    <menuitem id="menu_devops_data_sources" name="Data Sources" parent="menu_devops_settings"
+    <menuitem id="menu_devops_root" name="DevOps 笔记本" sequence="5" groups="base.group_user"/>
+
+    <menuitem id="menu_devops_notebooks" name="笔记本管理" parent="menu_devops_root" sequence="10" groups="base.group_user"/>
+    <menuitem id="menu_devops_notebooks_list" name="全部笔记本" parent="menu_devops_notebooks" action="action_devops_notebook" sequence="10" groups="base.group_user"/>
+
+    <menuitem id="menu_devops_requirements" name="需求管理" parent="menu_devops_root" action="action_devops_requirement" sequence="20"/>
+    <menuitem id="menu_devops_issues" name="课题管理" parent="menu_devops_root" action="action_devops_issue" sequence="30"/>
+
+    <menuitem id="menu_devops_settings" name="设置" parent="menu_devops_root" sequence="999" groups="base.group_system"/>
+    <menuitem id="menu_devops_data_sources" name="数据源" parent="menu_devops_settings"
               action="action_devops_data_source" sequence="10" groups="base.group_system"/>
-    <menuitem id="menu_devops_notebook_categories" name="Notebook Categories" parent="menu_devops_settings"
+    <menuitem id="menu_devops_notebook_categories" name="笔记本分类" parent="menu_devops_settings"
               action="action_devops_notebook_category" sequence="20" groups="base.group_system"/>
-    <menuitem id="menu_devops_groups" name="DevOps Groups" parent="menu_devops_settings"
+    <menuitem id="menu_devops_groups" name="DevOps 分组" parent="menu_devops_settings"
               action="action_devops_groups" sequence="30" groups="base.group_system"/>
+    <menuitem id="menu_devops_notebook_schedule" name="定时任务" parent="menu_devops_notebooks"
+              action="action_devops_notebook_schedule" sequence="20" groups="base.group_system"/>
+    <menuitem id="menu_devops_notebook_runs" name="执行历史" parent="menu_devops_notebooks"
+              action="action_devops_notebook_run" sequence="30" groups="base.group_system"/>
+    <menuitem id="menu_devops_training" name="培训管理" parent="menu_devops_root" sequence="50" groups="devops.group_devops_user,devops.group_devops_manager,base.group_system"/>
+    <menuitem id="menu_devops_training_courses" name="培训课程管理" parent="menu_devops_training"
+              action="action_devops_training_course" sequence="10" groups="devops.group_devops_manager,base.group_system"/>
+    <menuitem id="menu_devops_training_resources" name="培训资料" parent="menu_devops_training"
+              action="action_devops_training_resource" sequence="20" groups="devops.group_devops_manager,base.group_system"/>
+    <menuitem id="menu_devops_training_manuals" name="用户手册" parent="menu_devops_training"
+              action="action_devops_training_manual" sequence="30" groups="devops.group_devops_user,devops.group_devops_manager,base.group_system"/>
+    <menuitem id="menu_devops_training_faq" name="常见问题" parent="menu_devops_training"
+              action="action_devops_training_faq" sequence="40" groups="devops.group_devops_user,devops.group_devops_manager,base.group_system"/>
 </odoo>

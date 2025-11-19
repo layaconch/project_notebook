@@ -11,6 +11,8 @@
     "data": [
         "security/devops_groups.xml",
         "security/devops_security.xml",
+        "security/devops_training_security.xml",
+        "security/devops_schedule_security.xml",
         "security/ir.model.access.csv",
         "views/devops_security_views.xml",
         "views/devops_notebook_views.xml",
@@ -18,13 +20,17 @@
         "views/devops_requirement_views.xml",
         "views/devops_issue_views.xml",
         "views/res_config_settings_views.xml",
-        "views/devops_menu.xml"
+        "views/devops_training_views.xml",
+        "views/devops_menu.xml",
+        "data/devops_notebook_cron.xml"
     ],
     "assets": {
         "web.assets_backend": [
             "devops/static/src/scss/notebook.scss",
+            "devops/static/src/js/execution_mode_widget.js",
         ],
     },
+    "post_init_hook": "post_init_hook",
     "application": True,
     "auto_install": False,
 }

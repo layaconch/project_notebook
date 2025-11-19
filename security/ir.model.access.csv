@@ -6,3 +6,15 @@ devops_requirement_user_access,devops.requirement.user,model_devops_requirement,
 devops_issue_user_access,devops.issue.user,model_devops_issue,base.group_user,1,1,1,1
 devops_notebook_category_user_access,devops.notebook.category.user,model_devops_notebook_category,base.group_user,1,0,0,0
 devops_notebook_category_admin_access,devops.notebook.category.admin,model_devops_notebook_category,base.group_system,1,1,1,1
+devops_notebook_schedule_user_access,devops.notebook.schedule.user,model_devops_notebook_schedule,base.group_user,1,1,1,0
+devops_training_resource_user_access,devops.training.resource.user,model_devops_training_resource,devops.group_devops_user,1,0,0,0
+devops_training_resource_manager_access,devops.training.resource.manager,model_devops_training_resource,devops.group_devops_manager,1,1,1,1
+devops_training_course_user_access,devops.training.course.user,model_devops_training_course,devops.group_devops_user,1,0,0,0
+devops_training_course_manager_access,devops.training.course.manager,model_devops_training_course,devops.group_devops_manager,1,1,1,1
+devops_training_manual_user_access,devops.training.manual.user,model_devops_training_manual,devops.group_devops_user,1,0,0,0
+devops_training_manual_manager_access,devops.training.manual.manager,model_devops_training_manual,devops.group_devops_manager,1,1,1,1
+devops_training_faq_user_access,devops.training.faq.user,model_devops_training_faq,devops.group_devops_user,1,0,0,0
+devops_training_faq_manager_access,devops.training.faq.manager,model_devops_training_faq,devops.group_devops_manager,1,1,1,1
+devops_notebook_run_user_access,devops.notebook.run.user,model_devops_notebook_run,devops.group_devops_user,1,0,0,0
+devops_notebook_run_manager_access,devops.notebook.run.manager,model_devops_notebook_run,devops.group_devops_manager,1,0,0,0
+devops_notebook_run_admin_access,devops.notebook.run.admin,model_devops_notebook_run,base.group_system,1,0,0,0

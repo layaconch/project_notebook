@@ -200,3 +200,16 @@ class DevOpsDataSource(models.Model):
                     except oracledb.ProgrammingError:
                         pass
         return oracledb
+
+    def action_duplicate(self):
+        self.ensure_one()
+        copy_vals = {
+            "name": _("%s (copy)") % self.name,
+        }
+        new_ds = self.copy(copy_vals)
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "devops.data.source",
+            "view_mode": "form",
+            "res_id": new_ds.id,
+        }

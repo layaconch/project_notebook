@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Module category -->
-    <record id="module_category_devops" model="ir.module.category">
-        <field name="name">DevOps</field>
-        <field name="description">DevOps notebook and data sources</field>
-        <field name="sequence">25</field>
-    </record>
-
     <!-- Groups -->
     <record id="group_devops_user" model="res.groups">
         <field name="name">DevOps User</field>
-        <field name="category_id" ref="module_category_devops"/>
+        <field name="category_id" ref="base.module_category_devops"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
     <record id="group_devops_manager" model="res.groups">
         <field name="name">DevOps Manager</field>
-        <field name="category_id" ref="module_category_devops"/>
+        <field name="category_id" ref="base.module_category_devops"/>
         <field name="implied_ids" eval="[(4, ref('group_devops_user'))]"/>
     </record>
 </odoo>

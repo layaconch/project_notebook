@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="devops_notebook_schedule_rule_user" model="ir.rule">
+        <field name="name">Notebook Schedule - user</field>
+        <field name="model_id" ref="model_devops_notebook_schedule"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">['|',('notebook_id.owner_id','=',user.id),('notebook_id.category_id.is_public','=',True)]</field>
+    </record>
+    <record id="devops_notebook_schedule_rule_admin" model="ir.rule">
+        <field name="name">Notebook Schedule - admin</field>
+        <field name="model_id" ref="model_devops_notebook_schedule"/>
+        <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+    </record>
+</odoo>

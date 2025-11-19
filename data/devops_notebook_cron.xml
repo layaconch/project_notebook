@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ir_actions_server_devops_notebook_schedule" model="ir.actions.server">
+        <field name="name">DevOps Notebook Schedules</field>
+        <field name="model_id" ref="model_devops_notebook_schedule"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_run_schedules()</field>
+    </record>
+
+    <record id="ir_cron_devops_notebook_schedule" model="ir.cron">
+        <field name="ir_actions_server_id" ref="ir_actions_server_devops_notebook_schedule"/>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="nextcall">2025-01-01 00:00:00</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

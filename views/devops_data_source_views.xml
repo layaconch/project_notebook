@@ -4,7 +4,7 @@
         <field name="name">devops.data.source.tree</field>
         <field name="model">devops.data.source</field>
         <field name="arch" type="xml">
-                <list>
+                <list string="数据源">
                     <field name="name"/>
                     <field name="source_type"/>
                     <field name="host"/>
@@ -20,6 +20,7 @@
             <form string="Data Source">
                 <header>
                     <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
+                    <button name="action_duplicate" type="object" string="Duplicate as New" class="btn-secondary"/>
                 </header>
                 <sheet>
                     <group>
@@ -41,7 +42,7 @@
     </record>
 
     <record id="action_devops_data_source" model="ir.actions.act_window">
-        <field name="name">Data Sources</field>
+        <field name="name">数据源</field>
         <field name="res_model">devops.data.source</field>
         <field name="view_mode">list,form</field>
         <field name="target">current</field>

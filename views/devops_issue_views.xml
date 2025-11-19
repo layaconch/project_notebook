@@ -4,7 +4,7 @@
         <field name="name">devops.issue.list</field>
         <field name="model">devops.issue</field>
         <field name="arch" type="xml">
-            <list>
+            <list string="课题">
                 <field name="name"/>
                 <field name="requirement_id"/>
                 <field name="owner_id"/>
@@ -68,7 +68,7 @@
     </record>
 
     <record id="action_devops_issue" model="ir.actions.act_window">
-        <field name="name">Issues</field>
+        <field name="name">课题管理</field>
         <field name="res_model">devops.issue</field>
         <field name="view_mode">list,form</field>
     </record>

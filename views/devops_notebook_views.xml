@@ -4,7 +4,7 @@
         <field name="name">devops.notebook.list</field>
         <field name="model">devops.notebook</field>
         <field name="arch" type="xml">
-            <list string="Notebooks" default_order="write_date desc">
+            <list string="笔记本" default_order="write_date desc">
                 <field name="name"/>
                 <field name="data_source_id"/>
                 <field name="category_id"/>
@@ -25,68 +25,100 @@
                 <header>
                     <button name="action_run_all" type="object" string="Run All" class="btn-primary"/>
                     <field name="data_source_id" readonly="1" class="ms-2" optional="show"/>
+                    <button name="action_configure_schedule"
+                            type="object"
+                            string="配置执行计划"
+                            class="oe_highlight"/>
+                    <button name="action_open_run_history"
+                            type="object"
+                            string="查看执行历史"
+                            class="oe_link"/>
                 </header>
                 <sheet>
-                    <group>
-                        <group>
-                            <field name="name"/>
-                            <field name="owner_id" options="{'no_create': True}"/>
-                            <field name="data_source_id" options="{'no_create': False}"/>
-                            <field name="category_id" options="{'no_create': False}"/>
-                        </group>
-                        <group>
-                            <field name="cell_total" readonly="1"/>
-                            <field name="execution_count" readonly="1"/>
-                            <field name="failed_cells" readonly="1"/>
-                            <field name="last_run" readonly="1"/>
-                        </group>
-                    </group>
-                    <div class="o_devops_nb_workspace">
-                        <div class="o_devops_nb_sidebar">
-                            <field name="description" placeholder="Notebook description, tags..."/>
-                            <field name="cell_ids" readonly="1">
-                                <list string="Outline">
-                                    <field name="sequence"/>
-                                    <field name="cell_type"/>
-                                    <field name="status"/>
-                                </list>
-                            </field>
+                    <div class="o_devops_layout">
+                        <div class="o_devops_meta_panel">
+                            <group class="o_devops_meta_fields">
+                                <field name="name"/>
+                                <field name="owner_id" options="{'no_create': True}"/>
+                                <field name="data_source_id" options="{'no_create': False}"/>
+                                <field name="category_id" options="{'no_create': False}"/>
+                                <field name="execution_mode" widget="devops_execution_mode"/>
+                                <field name="cell_total" readonly="1"/>
+                                <field name="execution_count" readonly="1"/>
+                                <field name="failed_cells" readonly="1"/>
+                                <field name="last_run" readonly="1"/>
+                            </group>
+                            <group string="笔记本说明" class="o_devops_meta_description">
+                                <field name="description"
+                                       widget="text"
+                                       placeholder="Notebook description, tags..."
+                                       options="{'no_quick_create': True}"/>
+                            </group>
+                            <group string="单元格状态" class="o_devops_meta_outline">
+                                <field name="cell_ids" readonly="1">
+                                    <list string="单元格状态">
+                                        <field name="sequence"/>
+                                        <field name="cell_type"/>
+                                        <field name="status"/>
+                                    </list>
+                                </field>
+                            </group>
+                            <div class="o_devops_meta_stats o_notebook_stats">
+                                <div class="o_stat_box">
+                                    <div class="o_stat_label">单元总数</div>
+                                    <field name="cell_total" readonly="1"/>
+                                </div>
+                                <div class="o_stat_box">
+                                    <div class="o_stat_label">执行次数</div>
+                                    <field name="execution_count" readonly="1"/>
+                                </div>
+                                <div class="o_stat_box">
+                                    <div class="o_stat_label">失败单元</div>
+                                    <field name="failed_cells" readonly="1"/>
+                                </div>
+                                <div class="o_stat_box">
+                                    <div class="o_stat_label">最后运行时间</div>
+                                    <field name="last_run" readonly="1"/>
+                                </div>
+                            </div>
                         </div>
-                        <div class="o_devops_nb_editor">
-                            <field name="cell_ids" context="{'default_notebook_id': id}">
-                                <kanban class="o_devops_nb_cells" quick_create="false" editable="bottom" default_group_by="">
-                                    <field name="sequence"/>
-                                    <field name="cell_label"/>
-                                    <field name="cell_type"/>
-                                    <field name="input_source"/>
-                                    <field name="output_html"/>
-                                    <field name="status"/>
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <div class="o_nb_cell">
-                                                <div class="o_nb_cell_header">
-                                                    <span class="badge text-bg-secondary">
-                                                        <field name="cell_label"/>
-                                                    </span>
-                                                    <span class="ms-2">
-                                                        <field name="cell_type"/>
-                                                    </span>
-                                                    <button name="action_run" type="object" string="Run" class="btn btn-sm btn-primary float-end"/>
+                        <div class="o_devops_nb_workspace o_devops_nb_main">
+                            <div class="o_devops_nb_editor">
+                                <field name="cell_ids" context="{'default_notebook_id': id}">
+                                    <kanban class="o_devops_nb_cells" quick_create="false" editable="bottom" default_group_by="">
+                                        <field name="sequence"/>
+                                        <field name="cell_label"/>
+                                        <field name="cell_type"/>
+                                        <field name="input_source"/>
+                                        <field name="output_html"/>
+                                        <field name="status"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="o_nb_cell">
+                                                    <div class="o_nb_cell_header">
+                                                        <span class="badge text-bg-secondary">
+                                                            <field name="cell_label"/>
+                                                        </span>
+                                                        <span class="ms-2">
+                                                            <field name="cell_type"/>
+                                                        </span>
+                                                        <button name="action_run" type="object" string="Run" class="btn btn-sm btn-primary float-end"/>
+                                                    </div>
+                                                    <div class="o_nb_cell_body">
+                                                        <field name="input_source" widget="text" class="o_nb_input"/>
+                                                    </div>
+                                                    <div class="o_nb_cell_output">
+                                                        <field name="output_html" widget="html" readonly="1" class="o_nb_output_html"/>
+                                                    </div>
+                                                    <div class="o_nb_cell_status">
+                                                        <field name="status" widget="badge"/>
+                                                    </div>
                                                 </div>
-                                                <div class="o_nb_cell_body">
-                                                    <field name="input_source" widget="text" class="o_nb_input"/>
-                                                </div>
-                                                <div class="o_nb_cell_output">
-                                                    <field name="output_html" widget="html" readonly="1" class="o_nb_output_html"/>
-                                                </div>
-                                                <div class="o_nb_cell_status">
-                                                    <field name="status" widget="badge"/>
-                                                </div>
-                                            </div>
-                                        </t>
-                                    </templates>
-                                </kanban>
-                            </field>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </div>
                         </div>
                     </div>
                 </sheet>
@@ -154,7 +186,7 @@
         <field name="name">devops.notebook.list</field>
         <field name="model">devops.notebook</field>
         <field name="arch" type="xml">
-            <list string="Notebooks" js_class="o_devops_nb_kanban" default_order="write_date desc">
+            <list string="Notebooks" default_order="write_date desc">
                 <field name="name"/>
                 <field name="owner_id"/>
                 <field name="data_source_id"/>
@@ -163,6 +195,59 @@
                 <field name="last_run"/>
             </list>
         </field>
+    </record>
+
+    <record id="view_devops_notebook_schedule_tree" model="ir.ui.view">
+        <field name="name">devops.notebook.schedule.tree</field>
+        <field name="model">devops.notebook.schedule</field>
+        <field name="arch" type="xml">
+            <list string="Notebook Schedules">
+                <field name="name"/>
+                <field name="notebook_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="interval_number"/>
+                <field name="interval_type"/>
+                <field name="next_run"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_schedule_form" model="ir.ui.view">
+        <field name="name">devops.notebook.schedule.form</field>
+        <field name="model">devops.notebook.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Notebook Schedule">
+                <header>
+                    <button name="action_run_now" type="object" string="Run Now" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="notebook_id" options="{'no_create': False}"/>
+                        <field name="name" string="Description" placeholder="Optional description"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="start_datetime"/>
+                        <field name="end_datetime"/>
+                    </group>
+                    <group>
+                        <field name="interval_number"/>
+                        <field name="interval_type"/>
+                        <field name="next_run" readonly="1"/>
+                        <field name="last_run" readonly="1"/>
+                        <field name="run_count" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_devops_notebook_schedule" model="ir.actions.act_window">
+        <field name="name">Notebook Schedules</field>
+        <field name="res_model">devops.notebook.schedule</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="view_devops_notebook_category_tree" model="ir.ui.view">
@@ -194,7 +279,7 @@
     </record>
 
     <record id="action_devops_notebook_category" model="ir.actions.act_window">
-        <field name="name">Notebook Categories</field>
+        <field name="name">笔记本分类</field>
         <field name="res_model">devops.notebook.category</field>
         <field name="view_mode">list,form</field>
     </record>
@@ -231,7 +316,7 @@
         <field name="name">devops.notebook.graph</field>
         <field name="model">devops.notebook</field>
         <field name="arch" type="xml">
-            <graph string="Notebooks" type="bar">
+            <graph string="笔记本统计" type="bar">
                 <field name="owner_id" type="row"/>
                 <field name="cell_total" type="measure"/>
                 <field name="execution_count" type="measure"/>
@@ -254,8 +339,82 @@
         </field>
     </record>
 
+    <record id="view_devops_notebook_run_list" model="ir.ui.view">
+        <field name="name">devops.notebook.run.list</field>
+        <field name="model">devops.notebook.run</field>
+        <field name="arch" type="xml">
+            <list string="执行历史" default_order="start_datetime desc">
+                <field name="name"/>
+                <field name="notebook_id"/>
+                <field name="schedule_id"/>
+                <field name="trigger_type"/>
+                <field name="state"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="duration_seconds"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_run_form" model="ir.ui.view">
+        <field name="name">devops.notebook.run.form</field>
+        <field name="model">devops.notebook.run</field>
+        <field name="arch" type="xml">
+            <form string="执行详情">
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="notebook_id" readonly="1"/>
+                        <field name="schedule_id" readonly="1"/>
+                        <field name="trigger_type" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                        <field name="user_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="start_datetime" readonly="1"/>
+                        <field name="end_datetime" readonly="1"/>
+                        <field name="duration_seconds" readonly="1"/>
+                        <field name="result_cell_total" readonly="1"/>
+                        <field name="result_failed_cells" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="message" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_devops_notebook_run_search" model="ir.ui.view">
+        <field name="name">devops.notebook.run.search</field>
+        <field name="model">devops.notebook.run</field>
+        <field name="arch" type="xml">
+            <search string="执行历史">
+                <field name="notebook_id"/>
+                <field name="schedule_id"/>
+                <field name="user_id"/>
+                <filter name="filter_failed" string="失败" domain="[('state', '=', 'failed')]"/>
+                <filter name="filter_manual" string="手动" domain="[('trigger_type', '=', 'manual')]"/>
+                <filter name="filter_schedule" string="定时" domain="[('trigger_type', '=', 'schedule')]"/>
+                <group expand="0" string="分组">
+                    <filter name="group_notebook" string="笔记本" context="{'group_by': 'notebook_id'}"/>
+                    <filter name="group_schedule" string="定时任务" context="{'group_by': 'schedule_id'}"/>
+                    <filter name="group_state" string="状态" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_devops_notebook_run" model="ir.actions.act_window">
+        <field name="name">执行历史</field>
+        <field name="res_model">devops.notebook.run</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_devops_notebook_run_search"/>
+    </record>
+
     <record id="action_devops_notebook" model="ir.actions.act_window">
-        <field name="name">Notebooks</field>
+        <field name="name">笔记本</field>
         <field name="res_model">devops.notebook</field>
         <field name="view_mode">list,form,kanban,graph,pivot</field>
         <field name="context">{'default_owner_id': uid}</field>

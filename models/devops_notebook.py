@@ -4,9 +4,11 @@ import csv
 import io
 import re
 import time
+import traceback
 from io import StringIO
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.tools import html_escape
 from odoo.tools.safe_eval import safe_eval
 
@@ -44,9 +46,40 @@ class DevOpsNotebook(models.Model):
     category_id = fields.Many2one(
         "devops.notebook.category", string="Category", tracking=True
     )
+    execution_mode = fields.Selection(
+        [
+            ("immediate", "Run Immediately"),
+            ("scheduled", "Scheduled"),
+        ],
+        string="Execution Mode",
+        default="immediate",
+    )
+    schedule_ids = fields.One2many(
+        "devops.notebook.schedule", "notebook_id", string="Schedules"
+    )
+    run_history_ids = fields.One2many(
+        "devops.notebook.run", "notebook_id", string="Run History", readonly=True
+    )
     cell_total = fields.Integer(compute="_compute_stats", store=True)
     execution_count = fields.Integer(compute="_compute_stats", store=True)
     failed_cells = fields.Integer(compute="_compute_stats", store=True)
+
+    def copy(self, default=None):
+        default = dict(default or {})
+        base_name = default.get("name") or self.name or _("Notebook")
+        suffix = ""
+        if "copy" in base_name:
+            match = re.search(r"copy(\d+)$", base_name)
+            if match:
+                num = int(match.group(1)) + 1
+                base_name = re.sub(r"copy\d+$", "", base_name).rstrip()
+                suffix = f"copy{num}"
+            else:
+                suffix = "copy1"
+        else:
+            suffix = "copy1"
+        default["name"] = f"{base_name} {suffix}".strip()
+        return super().copy(default)
 
     @api.depends("cell_ids.status", "cell_ids.last_run")
     def _compute_stats(self):
@@ -60,10 +93,65 @@ class DevOpsNotebook(models.Model):
             )
 
     def action_run_all(self):
+        run_model = self.env["devops.notebook.run"].sudo()
         for notebook in self:
-            for cell in notebook.cell_ids.sorted("sequence"):
-                cell.action_run()
-            notebook.last_run = fields.Datetime.now()
+            from_schedule = self.env.context.get("from_schedule")
+            schedule_id = self.env.context.get("schedule_id")
+            if notebook.execution_mode == "scheduled" and not from_schedule:
+                active_sched = notebook.schedule_ids.filtered("active")
+                if not active_sched:
+                    raise UserError(
+                        _("Please configure an active schedule before running.")
+                    )
+                return {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": _("Scheduled run"),
+                        "message": _(
+                            "This notebook is set to scheduled mode. It will be executed according to its schedule."
+                        ),
+                        "type": "success",
+                        "sticky": False,
+                    },
+                }
+            start_dt = fields.Datetime.now()
+            run_record = run_model.create(
+                {
+                    "name": f"{notebook.name} - {fields.Datetime.to_string(start_dt)}",
+                    "notebook_id": notebook.id,
+                    "schedule_id": schedule_id,
+                    "trigger_type": "schedule" if from_schedule else "manual",
+                    "user_id": self.env.user.id,
+                    "start_datetime": start_dt,
+                }
+            )
+            run_state = "success"
+            error_message = False
+            try:
+                for cell in notebook.cell_ids.sorted("sequence"):
+                    cell.action_run()
+                end_dt = fields.Datetime.now()
+                notebook.last_run = end_dt
+            except Exception:
+                run_state = "failed"
+                error_message = traceback.format_exc()
+                raise
+            finally:
+                end_dt = fields.Datetime.now()
+                duration = 0.0
+                if start_dt and end_dt:
+                    duration = (end_dt - start_dt).total_seconds()
+                run_record.write(
+                    {
+                        "end_datetime": end_dt,
+                        "duration_seconds": duration,
+                        "state": run_state,
+                        "message": error_message,
+                        "result_cell_total": notebook.cell_total,
+                        "result_failed_cells": notebook.failed_cells,
+                    }
+                )
 
     @api.model
     def _default_data_source(self):
@@ -73,6 +161,56 @@ class DevOpsNotebook(models.Model):
             .get_param("devops.default_data_source_id")
         )
         return int(param) if param else False
+
+    def action_run_now(self):
+        self.ensure_one()
+        self.action_run_all()
+        return True
+
+    def action_open_run_history(self):
+        self.ensure_one()
+        action_ref = self.env.ref(
+            "devops.action_devops_notebook_run", raise_if_not_found=False
+        )
+        if not action_ref:
+            raise UserError(
+                _("Run history action is unavailable. Please update the DevOps module.")
+            )
+        action = action_ref.read()[0]
+        action_domain = [("notebook_id", "=", self.id)]
+        action["domain"] = action_domain
+        ctx = action.get("context")
+        if isinstance(ctx, str):
+            ctx = safe_eval(ctx)
+        ctx = dict(ctx or {})
+        ctx.update(
+            {
+                "default_notebook_id": self.id,
+                "search_default_notebook_id": self.id,
+            }
+        )
+        action["context"] = ctx
+        return action
+
+    def action_configure_schedule(self):
+        self.ensure_one()
+        view = self.env.ref("devops.view_devops_notebook_schedule_form")
+        schedule = self.schedule_ids[:1]
+        ctx = {
+            "default_notebook_id": self.id,
+        }
+        action = {
+            "type": "ir.actions.act_window",
+            "name": _("配置执行计划"),
+            "res_model": "devops.notebook.schedule",
+            "view_mode": "form",
+            "view_id": view.id,
+            "target": "new",
+            "context": ctx,
+        }
+        if schedule:
+            action["res_id"] = schedule.id
+        return action
 
 
 class DevOpsNotebookCell(models.Model):
@@ -367,3 +505,148 @@ class DevOpsNotebookCell(models.Model):
             for row in body_rows
         )
         return f"<table class='o_devops_table'><thead><tr>{header_html}</tr></thead><tbody>{body_html}</tbody></table>"
+
+
+class DevOpsNotebookSchedule(models.Model):
+    _name = "devops.notebook.schedule"
+    _description = "Notebook Schedule"
+    _order = "next_run asc"
+
+    name = fields.Char(string="Description")
+    notebook_id = fields.Many2one("devops.notebook", required=True, ondelete="cascade")
+    start_datetime = fields.Datetime(
+        string="Start", required=True, default=lambda self: fields.Datetime.now()
+    )
+    end_datetime = fields.Datetime(string="End")
+    interval_number = fields.Integer(string="Every", default=1, required=True)
+    interval_type = fields.Selection(
+        [
+            ("months", "Months"),
+            ("weeks", "Weeks"),
+            ("days", "Days"),
+            ("hours", "Hours"),
+            ("minutes", "Minutes"),
+        ],
+        default="days",
+        required=True,
+    )
+    next_run = fields.Datetime(string="Next Run", compute="_compute_next_run", store=True)
+    active = fields.Boolean(default=True)
+    last_run = fields.Datetime(readonly=True)
+    run_count = fields.Integer(readonly=True)
+
+    @api.depends("start_datetime", "interval_number", "interval_type", "last_run", "active")
+    def _compute_next_run(self):
+        for rec in self:
+            if not rec.active:
+                rec.next_run = False
+                continue
+            now = fields.Datetime.now()
+            base = rec.last_run or rec.start_datetime
+            # If first run and start is in the past/now, run immediately
+            if not rec.last_run and base and base <= now:
+                rec.next_run = now
+            else:
+                rec.next_run = rec._add_interval(base)
+
+    def _add_interval(self, dt):
+        if not dt:
+            return False
+        itype = self.interval_type
+        inum = self.interval_number or 1
+        if itype == "seconds":
+            # Guard for legacy records; normalize to minutes
+            itype = "minutes"
+            inum = self._normalize_interval_to_minutes(inum)
+        delta_args = {itype: inum}
+        return fields.Datetime.add(dt, **delta_args)
+
+    def action_run_now(self):
+        for schedule in self:
+            schedule._run_once()
+
+    def _run_once(self):
+        if not self.notebook_id:
+            return
+        ctx = dict(self.env.context, from_schedule=True, schedule_id=self.id)
+        self.notebook_id.with_context(ctx).action_run_all()
+        now = fields.Datetime.now()
+        self.write(
+            {
+                "last_run": now,
+                "run_count": (self.run_count or 0) + 1,
+                "next_run": self._add_interval(now),
+            }
+        )
+
+    @api.model
+    def _cron_run_schedules(self):
+        now = fields.Datetime.now()
+        domain = [
+            ("active", "=", True),
+            ("next_run", "!=", False),
+            ("next_run", "<=", now),
+        ]
+        for schedule in self.search(domain, limit=200):
+            if schedule.end_datetime and schedule.end_datetime < now:
+                schedule.active = False
+                continue
+            schedule._run_once()
+
+    def _normalize_interval_to_minutes(self, interval_number=None):
+        number = interval_number if interval_number is not None else self.interval_number
+        return max(1, int(((number or 1) + 59) // 60))
+
+    def _migrate_seconds_to_minutes(self):
+        # Normalize legacy seconds interval to minutes (minimum 1 minute)
+        sec_records = self.search([("interval_type", "=", "seconds")])
+        for rec in sec_records:
+            rec.write(
+                {
+                    "interval_type": "minutes",
+                    "interval_number": rec._normalize_interval_to_minutes(),
+                }
+            )
+
+    @api.constrains("notebook_id", "active")
+    def _check_single_active_schedule(self):
+        for rec in self:
+            if not rec.active or not rec.notebook_id:
+                continue
+            others = self.search(
+                [
+                    ("id", "!=", rec.id),
+                    ("notebook_id", "=", rec.notebook_id.id),
+                    ("active", "=", True),
+                ],
+                limit=1,
+            )
+            if others:
+                raise ValueError(_("A notebook can only have one active schedule."))
+
+
+class DevOpsNotebookRun(models.Model):
+    _name = "devops.notebook.run"
+    _description = "Notebook Run History"
+    _order = "start_datetime desc"
+
+    name = fields.Char(required=True)
+    notebook_id = fields.Many2one("devops.notebook", required=True, ondelete="cascade")
+    schedule_id = fields.Many2one("devops.notebook.schedule", ondelete="set null")
+    trigger_type = fields.Selection(
+        [("manual", "Manual"), ("schedule", "Scheduled")],
+        string="Trigger",
+        default="manual",
+    )
+    state = fields.Selection(
+        [("success", "Success"), ("failed", "Failed")],
+        string="Status",
+        default="success",
+    )
+    start_datetime = fields.Datetime(required=True)
+    end_datetime = fields.Datetime()
+    duration_seconds = fields.Float(string="Duration (s)")
+    user_id = fields.Many2one("res.users", string="Triggered By")
+    message = fields.Text(string="Details")
+    result_cell_total = fields.Integer(string="Cells")
+    result_failed_cells = fields.Integer(string="Failed Cells")

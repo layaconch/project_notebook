@@ -255,8 +255,240 @@ msgstr "DevOps 笔记本单元"
 #. module: devops
 #: model:ir.ui.menu,name:devops.menu_devops_root
 msgid "DevOps Platform"
-msgstr "DevOps 平台"
+msgstr "运维平台"
 
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_notebooks
+msgid "笔记本管理"
+msgstr "笔记本管理"
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_notebooks_list
+msgid "笔记本"
+msgstr "笔记本"
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_notebook_categories
+msgid "Notebook Categories"
+msgstr "笔记本分类"
+
+#. module: devops
+#: model:ir.ui.menu,name:devops.menu_devops_notebook_schedule
+msgid "定时任务"
+msgstr "定时任务"
+
+#. module: devops
+#: model:ir.actions.act_window,name:devops.action_devops_notebook_schedule
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Notebook Schedules"
+msgstr "定时任务"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_data_source_form
+msgid "Duplicate as New"
+msgstr "复制为新数据源"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook_schedule__name
+msgid "Description"
+msgstr "描述"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Optional description"
+msgstr "可选描述"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Run Now"
+msgstr "立即运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Notebook Schedule"
+msgstr "笔记本定时任务"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+#: model:ir.actions.act_window,name:devops.action_devops_notebook_schedule
+msgid "Notebook Schedules"
+msgstr "定时任务"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Notebook"
+msgstr "笔记本"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Start"
+msgstr "开始时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "End"
+msgstr "结束时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Every"
+msgstr "间隔数值"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Interval Type"
+msgstr "间隔类型"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Next Run"
+msgstr "下次运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Last Run"
+msgstr "上次运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_form
+msgid "Run Count"
+msgstr "运行次数"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Description"
+msgstr "描述"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Notebook"
+msgstr "笔记本"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Start"
+msgstr "开始时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "End"
+msgstr "结束时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Every"
+msgstr "间隔数值"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Interval Type"
+msgstr "间隔类型"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Next Run"
+msgstr "下次运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Active"
+msgstr "启用"
+
+#. module: devops
+#: model:ir.model.fields,field_description:devops.field_devops_notebook__execution_mode
+msgid "Execution Mode"
+msgstr "执行模式"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook__execution_mode__immediate
+msgid "Run Immediately"
+msgstr "立即执行"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook__execution_mode__scheduled
+msgid "Scheduled"
+msgstr "按计划执行"
+
+#. module: devops
+#: code:addons/devops/models/devops_notebook.py:0
+#, python-format
+msgid "Please configure an active schedule before running."
+msgstr "请选择计划执行前先配置一条启用的计划。"
+
+#. module: devops
+#: code:addons/devops/models/devops_notebook.py:0
+#, python-format
+msgid "Scheduled run"
+msgstr "计划执行"
+
+#. module: devops
+#: code:addons/devops/models/devops_notebook.py:0
+#, python-format
+msgid "This notebook is set to scheduled mode. It will be executed according to its schedule."
+msgstr "该笔记本已设置为按计划执行，将根据计划自动运行。"
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Description"
+msgstr "描述"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Notebook"
+msgstr "笔记本"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Start"
+msgstr "开始时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "End"
+msgstr "结束时间"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Every"
+msgstr "间隔数值"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Interval Type"
+msgstr "间隔类型"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Next Run"
+msgstr "下次运行"
+
+#. module: devops
+#: model_terms:ir.ui.view,arch_db:devops.view_devops_notebook_schedule_tree
+msgid "Active"
+msgstr "启用"
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_schedule__interval_type__months
+msgid "Months"
+msgstr "月"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_schedule__interval_type__weeks
+msgid "Weeks"
+msgstr "周"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_schedule__interval_type__days
+msgid "Days"
+msgstr "天"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_schedule__interval_type__hours
+msgid "Hours"
+msgstr "小时"
+
+#. module: devops
+#: model:ir.model.fields.selection,name:devops.selection__devops_notebook_schedule__interval_type__minutes
+msgid "Minutes"
+msgstr "分钟"
 #. module: devops
 #: model:ir.model,name:devops.model_devops_requirement
 msgid "DevOps Requirement"
