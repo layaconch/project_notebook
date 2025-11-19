@@ -102,7 +102,17 @@
                                                         <span class="ms-2">
                                                             <field name="cell_type"/>
                                                         </span>
-                                                        <button name="action_run" type="object" string="Run" class="btn btn-sm btn-primary float-end"/>
+                                                        <div class="o_nb_cell_actions">
+                                                            <button name="action_run"
+                                                                    type="object"
+                                                                    string="Run"
+                                                                    class="btn btn-sm btn-primary me-2"/>
+                                                            <button name="action_delete_cell"
+                                                                    type="object"
+                                                                    string="删除"
+                                                                    class="btn btn-sm btn-outline-danger"
+                                                                    confirm="确认删除该单元格？"/>
+                                                        </div>
                                                     </div>
                                                     <div class="o_nb_cell_body">
                                                         <field name="input_source" widget="text" class="o_nb_input"/>

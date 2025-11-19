@@ -128,9 +128,10 @@ class DevOpsNotebook(models.Model):
             )
             run_state = "success"
             error_message = False
+            execution_context = {"results": [], "by_id": {}, "by_sequence": {}}
             try:
                 for cell in notebook.cell_ids.sorted("sequence"):
-                    cell.action_run()
+                    cell._run_cell(execution_context=execution_context)
                 end_dt = fields.Datetime.now()
                 notebook.last_run = end_dt
             except Exception:
@@ -235,6 +236,7 @@ class DevOpsNotebookCell(models.Model):
     output_html = fields.Html(string="Rendered Output")
     output_file = fields.Binary(string="Export File", readonly=True)
     output_filename = fields.Char(string="Export Filename", readonly=True)
+    output_data = fields.Json(string="Structured Output", readonly=True)
     cell_label = fields.Char(compute="_compute_label", store=True)
     last_run = fields.Datetime()
     status = fields.Selection(
@@ -263,34 +265,37 @@ class DevOpsNotebookCell(models.Model):
         for cell in self:
             cell._run_cell()
 
+    def action_delete_cell(self):
+        self.unlink()
+
     @api.depends("sequence")
     def _compute_label(self):
         for cell in self:
             cell.cell_label = f"In [{cell.sequence}]" if cell.cell_type != "markdown" else ""
 
-    def _run_cell(self):
+    def _run_cell(self, execution_context=None):
         start = time.time()
         output_text = ""
         output_html = ""
         status = "success"
         export_file = False
         export_filename = False
+        structured_data = None
         try:
             if self.cell_type == "markdown":
                 output_html = self._render_markdown(self.input_source or "")
                 output_text = self.input_source or ""
             elif self.cell_type == "python":
-                output_text = self._exec_python()
+                output_text = self._exec_python(execution_context=execution_context)
                 output_html = "<pre>%s</pre>" % html_escape(output_text or "")
             elif self.cell_type == "sql":
                 sql_result = self._exec_sql()
-                if isinstance(sql_result, tuple):
-                    # tuple can be (text, html[, file_bytes, filename])
-                    output_text = sql_result[0]
-                    output_html = sql_result[1]
-                    if len(sql_result) >= 4:
-                        export_file = sql_result[2]
-                        export_filename = sql_result[3]
+                if isinstance(sql_result, dict):
+                    output_text = sql_result.get("text", "")
+                    output_html = sql_result.get("html", "")
+                    structured_data = sql_result.get("data")
+                    export_file = sql_result.get("file")
+                    export_filename = sql_result.get("filename")
                 else:
                     output_text = sql_result
                     output_html = "<pre>%s</pre>" % html_escape(output_text or "")
@@ -309,12 +314,29 @@ class DevOpsNotebookCell(models.Model):
             "output_filename": export_filename,
             "last_run": fields.Datetime.now(),
             "elapsed_ms": elapsed,
+            "output_data": structured_data,
         }
         if status == "success" and self.cell_type == "markdown":
             payload["output_text"] = self.input_source or ""
+        entry = self._make_result_entry(
+            status=status,
+            text=output_text,
+            html=output_html,
+            data=structured_data,
+            file=export_file,
+            filename=export_filename,
+        )
         self.write(payload)
+        if execution_context is not None:
+            execution_context.setdefault("results", []).append(entry)
+            execution_context.setdefault("by_id", {})[self.id] = entry
+            execution_context.setdefault("by_sequence", {})[self.sequence] = entry
+            execution_context.setdefault("by_label", {})
+            if self.cell_label:
+                execution_context["by_label"][self.cell_label] = entry
+            execution_context["last_result"] = entry
 
-    def _exec_python(self):
+    def _exec_python(self, execution_context=None):
         localdict = {
             "env": self.env,
             "notebook": self.notebook_id,
@@ -324,11 +346,74 @@ class DevOpsNotebookCell(models.Model):
         localdict.setdefault("print", builtins.print)
         buffer = StringIO()
         code = self.input_source or ""
+        if execution_context is None:
+            execution_context = {}
+        localdict["cell_results"] = execution_context
+        localdict["last_result"] = execution_context.get("last_result")
+
+        def get_cell_result(identifier):
+            entry = None
+            if execution_context:
+                if isinstance(identifier, str):
+                    entry = execution_context.get("by_label", {}).get(identifier)
+                else:
+                    by_seq = execution_context.get("by_sequence", {})
+                    by_id = execution_context.get("by_id", {})
+                    entry = by_seq.get(identifier) or by_id.get(identifier)
+            if entry:
+                return entry
+            cell = self._find_cell_by_identifier(identifier)
+            if cell:
+                return cell._make_result_entry()
+            return None
+
+        localdict["get_cell_result"] = get_cell_result
         globals_env = {"__builtins__": builtins}
         with contextlib.redirect_stdout(buffer):
             exec(compile(code, "<notebook>", "exec"), globals_env, localdict)
         stdout = buffer.getvalue()
         return stdout.strip()
+
+    def _make_result_entry(
+        self,
+        *,
+        status=None,
+        text=None,
+        html=None,
+        data=None,
+        file=None,
+        filename=None,
+    ):
+        return {
+            "id": self.id,
+            "sequence": self.sequence,
+            "label": self.cell_label,
+            "type": self.cell_type,
+            "status": status if status is not None else self.status,
+            "text": text if text is not None else self.output_text,
+            "html": html if html is not None else self.output_html,
+            "data": data if data is not None else self.output_data,
+            "file": file if file is not None else self.output_file,
+            "filename": filename if filename is not None else self.output_filename,
+        }
+
+    def _find_cell_by_identifier(self, identifier):
+        notebook = self.notebook_id
+        if not notebook:
+            return self.env[self._name]
+        candidates = notebook.cell_ids
+        target = self.env[self._name]
+        if isinstance(identifier, int):
+            target = candidates.filtered(lambda c: c.sequence == identifier)[:1]
+        elif isinstance(identifier, str):
+            stripped = identifier.strip()
+            match = re.match(r"In \[(\d+)\]", stripped)
+            if match:
+                seq = int(match.group(1))
+                target = candidates.filtered(lambda c: c.sequence == seq)[:1]
+            if not target:
+                target = candidates.filtered(lambda c: c.cell_label == stripped)[:1]
+        return target
 
     def _exec_sql(self):
         query = (self.input_source or "").strip()
@@ -405,10 +490,17 @@ class DevOpsNotebookCell(models.Model):
         rows = cursor.fetchall()
         headers = [desc[0] for desc in cursor.description]
         text_lines = [", ".join(headers)]
-        text_lines += [", ".join([str(col) for col in row]) for row in rows]
-        html_header = "".join(f"<th>{html_escape(h)}</th>" for h in headers)
+        text_lines += [
+            ", ".join([self._stringify_value(col) for col in row]) for row in rows
+        ]
+        html_header = "".join(f"<th>{html_escape(self._stringify_value(h))}</th>" for h in headers)
         html_body = "".join(
-            "<tr>" + "".join(f"<td>{html_escape(col)}</td>" for col in row) + "</tr>"
+            "<tr>"
+            + "".join(
+                f"<td>{html_escape(self._stringify_value(col))}</td>"
+                for col in row
+            )
+            + "</tr>"
             for row in rows
         )
         html = (
@@ -416,7 +508,27 @@ class DevOpsNotebookCell(models.Model):
             f"<thead><tr>{html_header}</tr></thead>"
             f"<tbody>{html_body}</tbody></table>"
         )
-        return "\n".join(text_lines), html
+        data_rows = []
+        for row in rows:
+            record = {}
+            for header, value in zip(headers, row):
+                record[header] = self._stringify_value(value)
+            data_rows.append(record)
+        return {
+            "text": "\n".join(text_lines),
+            "html": html,
+            "data": data_rows,
+        }
+
+    def _stringify_value(self, value):
+        if value is None:
+            return ""
+        if isinstance(value, (bytes, bytearray)):
+            try:
+                return value.decode("utf-8")
+            except Exception:
+                return value.hex()
+        return str(value)
 
     def _build_xlsx(self, headers, rows):
         try:

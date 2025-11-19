@@ -112,6 +112,16 @@
       border-radius: 6px;
       padding: 12px;
     }
+    .o_nb_cell_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      .o_nb_cell_actions {
+        margin-left: auto;
+        display: flex;
+        gap: 6px;
+      }
+    }
     .o_kanban_record {
       width: 100% !important;
       margin-right: 0;

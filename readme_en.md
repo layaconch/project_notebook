@@ -9,7 +9,7 @@ DevOps Operations Platform is an Odoo 18 application that combines interactive n
 - **Team-oriented permissions** – Categories expose "Allowed User Groups" to control access, while public categories remain visible to everyone.
 - **Training area** – Upload training courses, manuals, or links for end users under the "用户培训" (User Training) menu. Permissions separate managers and learners.
 - **UI improvements** – Notebook meta information (data source, owner, stats, outline) lives in a left rail, cells occupy the right 80% area, and inputs use a light-blue theme to distinguish editable regions.
-- **Developer comforts** – `odoo18_docker/upgrade_devops.sh` restarts containers and runs `-u devops` so code changes are consistently deployed.
+- **Developer comforts** – Notebook layout, execution widget, and training menus are tuned for DevOps workflows out of the box.
 
 ## Requirements
 - Odoo 18.0 (tested with official `odoo:18.0-20251106` image)
@@ -24,12 +24,11 @@ DevOps Operations Platform is an Odoo 18 application that combines interactive n
 5. Update the app list and install **DevOps Operations Platform** from Apps (developer mode recommended).
 
 ## Upgrading
-When you pull new changes:
+After updating the module code in your addons path, restart Odoo (if needed) and run:
 ```bash
-cd /home/cheap/odoo18_docker
-./upgrade_devops.sh <database_name>
+odoo-bin -d <database_name> -u devops --stop-after-init
 ```
-The script pulls pinned Docker images, restarts services, and runs `odoo-bin -d <db> -u devops --stop-after-init`.
+This reloads models, views, cron definitions, and translations shipped with the addon.
 
 ## Usage Tips
 - Configure data sources via DevOps → Settings → Data Sources; remember to set schema for PostgreSQL if you need non-public relations.
