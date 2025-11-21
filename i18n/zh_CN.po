@@ -16,6 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: project_notebook
+#: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__wiki_page_count
+msgid "Wiki Pages"
+msgstr "Wiki 页面"
+
+#. module: project_notebook
+#: code:addons/project_notebook/models/devops_notebook.py:0
+msgid "Please set a project to open its wiki pages."
+msgstr "请先选择项目后再打开对应的 Wiki 页面。"
+
+#. module: project_notebook
+#: code:addons/project_notebook/models/devops_notebook.py:0
+msgid "Project wiki action is unavailable. Please update modules."
+msgstr "项目 Wiki 动作不可用，请更新模块。"
+
+#. module: project_notebook
 #. odoo-python
 #: code:addons/project_notebook/models/devops_data_source.py:0
 msgid "%s (copy)"

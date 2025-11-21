@@ -36,6 +36,11 @@ class DevOpsNotebook(models.Model):
     project_id = fields.Many2one(
         "project.project", string="Project", tracking=True, index=True
     )
+    wiki_page_count = fields.Integer(
+        string="Wiki Pages",
+        related="project_id.document_page_count",
+        readonly=True,
+    )
     owner_id = fields.Many2one(
         "res.users", string="Owner", default=lambda self: self.env.user, tracking=True
     )
@@ -180,6 +185,29 @@ class DevOpsNotebook(models.Model):
         self.ensure_one()
         self.action_run_all()
         return True
+
+    def action_open_project_wiki(self):
+        self.ensure_one()
+        if not self.project_id:
+            raise UserError(_("Please set a project to open its wiki pages."))
+        action = self.env.ref(
+            "document_page_project.action_document_page_projects",
+            raise_if_not_found=False,
+        )
+        if not action:
+            raise UserError(_("Project wiki action is unavailable. Please update modules."))
+        result = action.read()[0]
+        result["domain"] = [
+            ("type", "=", "content"),
+            ("project_id", "=", self.project_id.id),
+        ]
+        ctx = result.get("context")
+        if isinstance(ctx, str):
+            ctx = safe_eval(ctx)
+        ctx = dict(ctx or {})
+        ctx.update({"default_project_id": self.project_id.id})
+        result["context"] = ctx
+        return result
 
     def action_clear_all_outputs(self):
         for notebook in self:

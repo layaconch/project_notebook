@@ -56,6 +56,14 @@
                             class="btn-secondary"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_project_wiki"
+                                type="object"
+                                class="oe_stat_button"
+                                attrs="{'invisible': [('project_id','=',False)]}">
+                            <field name="wiki_page_count" string="Wiki Pages" widget="statinfo"/>
+                        </button>
+                    </div>
                     <div class="o_devops_layout">
                         <div class="o_devops_meta_panel">
                             <group class="o_devops_meta_fields">

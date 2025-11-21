@@ -7,7 +7,7 @@
     "author": "In-house",
     "license": "LGPL-3",
     "website": "https://www.zphile.com",
-    "depends": ["base", "mail", "web", "project"],
+    "depends": ["base", "mail", "web", "project", "document_page_project"],
     "data": [
         "security/devops_security.xml",
         "security/devops_training_security.xml",
