@@ -17,8 +17,8 @@ DevOps Operations Platform is an Odoo 18 application that combines interactive n
 - Python dependencies resolved through the official image
 
 ## Installation
-1. Clone this repository into your custom addons path (e.g. `/mnt/extra-addons/devops`).
-2. Ensure the module directory name is `devops`.
+1. Clone this repository into your custom addons path (e.g. `/mnt/extra-addons/project_notebook`).
+2. Ensure the module directory name is `project_notebook`.
 3. Add the path to `odoo.conf` or set the `ODOO_ADDONS_PATH` environment variable.
 4. Restart your Odoo service.
 5. Update the app list and install **DevOps Operations Platform** from Apps (developer mode recommended).
@@ -26,7 +26,7 @@ DevOps Operations Platform is an Odoo 18 application that combines interactive n
 ## Upgrading
 After updating the module code in your addons path, restart Odoo (if needed) and run:
 ```bash
-odoo-bin -d <database_name> -u devops --stop-after-init
+odoo-bin -d <database_name> -u project_notebook --stop-after-init
 ```
 This reloads models, views, cron definitions, and translations shipped with the addon.
 

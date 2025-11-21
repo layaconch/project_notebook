@@ -1,3 +1,4 @@
+import base64
 import builtins
 import contextlib
 import csv
@@ -32,6 +33,9 @@ class DevOpsNotebook(models.Model):
     _order = "create_date desc"
 
     name = fields.Char(required=True, tracking=True)
+    project_id = fields.Many2one(
+        "project.project", string="Project", tracking=True, index=True
+    )
     owner_id = fields.Many2one(
         "res.users", string="Owner", default=lambda self: self.env.user, tracking=True
     )
@@ -143,6 +147,14 @@ class DevOpsNotebook(models.Model):
                 duration = 0.0
                 if start_dt and end_dt:
                     duration = (end_dt - start_dt).total_seconds()
+                sent_mail_ids = []
+                for entry in execution_context.get("results", []):
+                    if isinstance(entry, dict):
+                        data = entry.get("data")
+                        if isinstance(data, dict) and data.get("sent_mail_ids"):
+                            sent_mail_ids.extend(data.get("sent_mail_ids") or [])
+                if sent_mail_ids:
+                    sent_mail_ids = list({int(i) for i in sent_mail_ids if i})
                 run_record.write(
                     {
                         "end_datetime": end_dt,
@@ -151,6 +163,7 @@ class DevOpsNotebook(models.Model):
                         "message": error_message,
                         "result_cell_total": notebook.cell_total,
                         "result_failed_cells": notebook.failed_cells,
+                        "mail_ids": sent_mail_ids and [(6, 0, sent_mail_ids)] or False,
                     }
                 )
 
@@ -168,10 +181,16 @@ class DevOpsNotebook(models.Model):
         self.action_run_all()
         return True
 
+    def action_clear_all_outputs(self):
+        for notebook in self:
+            notebook.cell_ids.action_clear_output()
+        return True
+
     def action_open_run_history(self):
         self.ensure_one()
         action_ref = self.env.ref(
-            "devops.action_devops_notebook_run", raise_if_not_found=False
+            "project_notebook.action_devops_notebook_run",
+            raise_if_not_found=False,
         )
         if not action_ref:
             raise UserError(
@@ -195,7 +214,7 @@ class DevOpsNotebook(models.Model):
 
     def action_configure_schedule(self):
         self.ensure_one()
-        view = self.env.ref("devops.view_devops_notebook_schedule_form")
+        view = self.env.ref("project_notebook.view_devops_notebook_schedule_form")
         schedule = self.schedule_ids[:1]
         ctx = {
             "default_notebook_id": self.id,
@@ -228,6 +247,7 @@ class DevOpsNotebookCell(models.Model):
             ("markdown", "Markdown"),
             ("python", "Python"),
             ("sql", "SQL"),
+            ("mail", "Mail"),
         ],
         required=True,
     )
@@ -265,6 +285,19 @@ class DevOpsNotebookCell(models.Model):
         for cell in self:
             cell._run_cell()
 
+    def action_clear_output(self):
+        """Clear outputs of selected cells."""
+        self.write(
+            {
+                "output_text": False,
+                "output_html": False,
+                "output_file": False,
+                "output_filename": False,
+                "output_data": False,
+                "status": "pending",
+            }
+        )
+
     def action_delete_cell(self):
         self.unlink()
 
@@ -287,6 +320,11 @@ class DevOpsNotebookCell(models.Model):
                 output_text = self.input_source or ""
             elif self.cell_type == "python":
                 output_text = self._exec_python(execution_context=execution_context)
+                output_html = "<pre>%s</pre>" % html_escape(output_text or "")
+            elif self.cell_type == "mail":
+                output_text, structured_data = self._exec_mail(
+                    execution_context=execution_context
+                )
                 output_html = "<pre>%s</pre>" % html_escape(output_text or "")
             elif self.cell_type == "sql":
                 sql_result = self._exec_sql()
@@ -351,28 +389,128 @@ class DevOpsNotebookCell(models.Model):
         localdict["cell_results"] = execution_context
         localdict["last_result"] = execution_context.get("last_result")
 
-        def get_cell_result(identifier):
-            entry = None
-            if execution_context:
-                if isinstance(identifier, str):
-                    entry = execution_context.get("by_label", {}).get(identifier)
-                else:
-                    by_seq = execution_context.get("by_sequence", {})
-                    by_id = execution_context.get("by_id", {})
-                    entry = by_seq.get(identifier) or by_id.get(identifier)
-            if entry:
-                return entry
-            cell = self._find_cell_by_identifier(identifier)
-            if cell:
-                return cell._make_result_entry()
-            return None
-
-        localdict["get_cell_result"] = get_cell_result
+        localdict["get_cell_result"] = lambda identifier: self._get_cell_result_helper(
+            identifier, execution_context
+        )
         globals_env = {"__builtins__": builtins}
         with contextlib.redirect_stdout(buffer):
             exec(compile(code, "<notebook>", "exec"), globals_env, localdict)
         stdout = buffer.getvalue()
         return stdout.strip()
+
+    def _exec_mail(self, execution_context=None):
+        Mail = self.env["mail.mail"].sudo()
+        sent_ids = []
+        buffer = StringIO()
+        localdict = {
+            "env": self.env,
+            "notebook": self.notebook_id,
+            "cell": self,
+            "recordset": self.env[self._name].browse(self.id),
+            "cell_results": execution_context or {},
+            "last_result": (execution_context or {}).get("last_result"),
+        }
+        localdict.setdefault("print", builtins.print)
+
+        def normalize_addresses(value):
+            if not value:
+                return ""
+            if isinstance(value, (list, tuple, set)):
+                return ",".join([v.strip() for v in value if v])
+            return str(value).replace(";", ",")
+
+        def prepare_attachments(attachments):
+            prepared = []
+            for item in attachments or []:
+                name = None
+                content = None
+                if isinstance(item, dict):
+                    name = item.get("name")
+                    content = item.get("content")
+                elif isinstance(item, (list, tuple)) and len(item) >= 2:
+                    name, content = item[0], item[1]
+                if not name or content is None:
+                    continue
+                data = content
+                if isinstance(content, bytes):
+                    data = base64.b64encode(content).decode("ascii")
+                elif isinstance(content, str):
+                    data = content
+                else:
+                    data = base64.b64encode(str(content).encode("utf-8")).decode("ascii")
+                prepared.append((name, data))
+            return prepared
+
+        def send_mail(
+            *,
+            subject,
+            email_to,
+            body_html=None,
+            body_text=None,
+            email_cc=None,
+            email_bcc=None,
+            attachments=None,
+            auto_send=True,
+        ):
+            if not subject or not email_to:
+                raise UserError(
+                    _("Both subject and recipients (email_to) are required to send mail.")
+                )
+            vals = {
+                "subject": subject,
+                "body_html": body_html or (body_text and html_escape(body_text)) or "",
+                "body": body_text or "",
+                "email_to": normalize_addresses(email_to),
+                "email_cc": normalize_addresses(email_cc),
+                "email_bcc": normalize_addresses(email_bcc),
+            }
+            prepared_attachments = prepare_attachments(attachments)
+            if prepared_attachments:
+                vals["attachment_ids"] = [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": name,
+                            "datas": data,
+                        },
+                    )
+                    for name, data in prepared_attachments
+                ]
+            mail = Mail.create(vals)
+            if auto_send:
+                mail.send()
+            sent_ids.append(mail.id)
+            return mail
+
+        localdict["send_mail"] = send_mail
+        localdict["get_cell_result"] = lambda identifier: self._get_cell_result_helper(
+            identifier, execution_context
+        )
+        code = self.input_source or ""
+        globals_env = {"__builtins__": builtins}
+        with contextlib.redirect_stdout(buffer):
+            exec(compile(code, "<notebook mail>", "exec"), globals_env, localdict)
+        stdout = buffer.getvalue().strip()
+        summary = stdout or _("Sent %s mails") % len(sent_ids)
+        data = {"sent_mail_ids": sent_ids}
+        return summary, data
+
+    def _get_cell_result_helper(self, identifier, execution_context):
+        entry = None
+        if execution_context:
+            if isinstance(identifier, str):
+                entry = execution_context.get("by_label", {}).get(identifier)
+            else:
+                by_seq = execution_context.get("by_sequence", {})
+                by_id = execution_context.get("by_id", {})
+                entry = by_seq.get(identifier) or by_id.get(identifier)
+        if entry:
+            return entry
+        cell = self._find_cell_by_identifier(identifier)
+        if cell:
+            return cell._make_result_entry()
+        return None
 
     def _make_result_entry(
         self,
@@ -626,6 +764,13 @@ class DevOpsNotebookSchedule(models.Model):
 
     name = fields.Char(string="Description")
     notebook_id = fields.Many2one("devops.notebook", required=True, ondelete="cascade")
+    project_id = fields.Many2one(
+        "project.project",
+        string="Project",
+        related="notebook_id.project_id",
+        store=True,
+        readonly=True,
+    )
     start_datetime = fields.Datetime(
         string="Start", required=True, default=lambda self: fields.Datetime.now()
     )
@@ -750,6 +895,13 @@ class DevOpsNotebookRun(models.Model):
         string="Trigger",
         default="manual",
     )
+    project_id = fields.Many2one(
+        "project.project",
+        string="Project",
+        related="notebook_id.project_id",
+        store=True,
+        readonly=True,
+    )
     state = fields.Selection(
         [("success", "Success"), ("failed", "Failed")],
         string="Status",
@@ -762,3 +914,31 @@ class DevOpsNotebookRun(models.Model):
     message = fields.Text(string="Details")
     result_cell_total = fields.Integer(string="Cells")
     result_failed_cells = fields.Integer(string="Failed Cells")
+    mail_ids = fields.Many2many(
+        "mail.mail",
+        "devops_run_mail_rel",
+        "run_id",
+        "mail_id",
+        string="Mails",
+        readonly=True,
+    )
+
+    def action_open_mails(self):
+        self.ensure_one()
+        action = self.env.ref("mail.action_view_mail_mail", raise_if_not_found=False)
+        if not action:
+            return False
+        result = action.read()[0]
+        result["domain"] = [("id", "in", self.mail_ids.ids)]
+        ctx = result.get("context")
+        if isinstance(ctx, str):
+            ctx = safe_eval(ctx)
+        ctx = dict(ctx or {})
+        ctx.update(
+            {
+                "default_devops_run_ids": [self.id],
+                "search_default_devops_run_ids": [self.id],
+            }
+        )
+        result["context"] = ctx
+        return result

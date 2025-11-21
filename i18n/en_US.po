@@ -119,10 +119,9 @@ msgid "Address used by /mail/api/send_mail; should match SMTP login."
 msgstr ""
 
 #. module: project_notebook
-#. module: project_notebook
 #: model:ir.ui.menu,name:project_notebook.menu_devops_notebooks_list
-msgid "Notebooks"
-msgstr "笔记本"
+msgid "All Notebooks"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_category__group_ids
@@ -194,22 +193,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__category_id
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_search
 msgid "Category"
-msgstr "分类"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__cell_label
 msgid "Cell Label"
-msgstr "单元标签"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__cell_total
 msgid "Cell Total"
-msgstr "单元总数"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__cell_type
 msgid "Cell Type"
-msgstr "单元类型"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__cell_ids
@@ -230,7 +229,7 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model,name:project_notebook.model_res_config_settings
 msgid "Config Settings"
-msgstr "配置设定"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_data_source__connection_string
@@ -301,7 +300,7 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.ui.menu,name:project_notebook.menu_devops_data_sources
 msgid "Data Sources"
-msgstr "数据源"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_data_source__database
@@ -469,7 +468,7 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__duration_seconds
 msgid "Duration (s)"
-msgstr "耗时(秒)"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__elapsed_ms
@@ -484,12 +483,12 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__end_datetime
 msgid "End"
-msgstr "结束时间"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__end_datetime
 msgid "End Datetime"
-msgstr "结束时间"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook_cell__status__error
@@ -499,17 +498,17 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__interval_number
 msgid "Every"
-msgstr "间隔数量"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__execution_count
 msgid "Execution Count"
-msgstr "执行次数"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__execution_mode
 msgid "Execution Mode"
-msgstr "执行模式"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__output_file
@@ -545,13 +544,13 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook_run__state__failed
 msgid "Failed"
-msgstr "失败"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__failed_cells
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__result_failed_cells
 msgid "Failed Cells"
-msgstr "失败单元"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_requirement__requirement_type__feature
@@ -698,7 +697,7 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__interval_type
 msgid "Interval Type"
-msgstr "间隔类型"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_issue__message_is_follower
@@ -715,14 +714,14 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_training_resource__knowledge_link
 msgid "Knowledge Link"
-msgstr "知识链接"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__last_run
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__last_run
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__last_run
 msgid "Last Run"
-msgstr "最后运行"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_data_source__write_uid
@@ -793,7 +792,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:project_notebook.action_devops_mail_history
 #: model:ir.ui.menu,name:project_notebook.menu_devops_mail_history
 msgid "Mail History"
-msgstr "邮件历史"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__mail_ids
@@ -883,7 +882,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_notebook.field_devops_training_manual__name
 #: model:ir.model.fields,field_description:project_notebook.field_devops_training_resource__name
 msgid "Name"
-msgstr "名称"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_issue__activity_date_deadline
@@ -932,7 +931,7 @@ msgstr ""
 #: model:ir.ui.menu,name:project_notebook.menu_devops_notebook_categories
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_category_tree
 msgid "Notebook Categories"
-msgstr "笔记本分类"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model,name:project_notebook.model_devops_notebook_category
@@ -953,29 +952,29 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.ui.menu,name:project_notebook.menu_devops_notebooks
 msgid "Notebook Management"
-msgstr "笔记本管理"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model,name:project_notebook.model_devops_notebook_run
 msgid "Notebook Run History"
-msgstr "笔记本运行历史"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model,name:project_notebook.model_devops_notebook_schedule
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_schedule_form
 msgid "Notebook Schedule"
-msgstr "笔记本计划"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.actions.act_window,name:project_notebook.action_devops_notebook_schedule
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_schedule_tree
 msgid "Notebook Schedules"
-msgstr "笔记本计划"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.ui.menu,name:project_notebook.menu_devops_settings
 msgid "Notebook Settings"
-msgstr "笔记本设置"
+msgstr ""
 
 #. module: project_notebook
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_form
@@ -1068,12 +1067,12 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model,name:project_notebook.model_mail_mail
 msgid "Outgoing Mails"
-msgstr "发出邮件"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__output_text
 msgid "Output (raw)"
-msgstr "输出（原始）"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_issue__owner_id
@@ -1081,7 +1080,7 @@ msgstr "输出（原始）"
 #: model:ir.model.fields,field_description:project_notebook.field_devops_requirement__owner_id
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_search
 msgid "Owner"
-msgstr "所有者"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_training_resource__resource_type__ppt
@@ -1135,7 +1134,7 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.ui.menu,name:project_notebook.menu_devops_root
 msgid "Project Notebook"
-msgstr "项目笔记本"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_category__is_public
@@ -1257,7 +1256,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__run_history_ids
 #: model:ir.ui.menu,name:project_notebook.menu_devops_notebook_runs
 msgid "Run History"
-msgstr "运行历史"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook__execution_mode__immediate
@@ -1342,25 +1341,25 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__schedule_id
 msgid "Schedule"
-msgstr "计划"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook__execution_mode__scheduled
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook_run__trigger_type__schedule
 msgid "Scheduled"
-msgstr "已计划"
+msgstr ""
 
 #. module: project_notebook
 #. odoo-python
 #: code:addons/project_notebook/models/devops_notebook.py:0
 msgid "Scheduled run"
-msgstr "计划运行"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__schedule_ids
 #: model:ir.ui.menu,name:project_notebook.menu_devops_notebook_schedule
 msgid "Schedules"
-msgstr "定时任务"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_data_source__schema
@@ -1399,19 +1398,19 @@ msgstr ""
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__start_datetime
 msgid "Start Datetime"
-msgstr "开始时间"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_requirement__state
 msgid "State"
-msgstr "状态"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_issue__status
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_cell__status
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__state
 msgid "Status"
-msgstr "状态"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,help:project_notebook.field_devops_issue__activity_state
@@ -1475,17 +1474,17 @@ msgstr ""
 #: model:ir.model,name:project_notebook.model_devops_training_resource
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_training_resource_form
 msgid "Training Resource"
-msgstr "培训资源"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__trigger_type
 msgid "Trigger"
-msgstr "触发方式"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__user_id
 msgid "Triggered By"
-msgstr "触发人"
+msgstr ""
 
 #. module: project_notebook
 #: model:ir.model.fields,field_description:project_notebook.field_devops_training_manual__manual_type
@@ -1776,9 +1775,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_requirement_list
 msgid "需求"
 msgstr ""
-#. module: project_notebook
-#: model:ir.model.fields,field_description:project_notebook.field_devops_notebook__project_id
-#: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_run__project_id
-#: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__project_id
-msgid "Project"
-msgstr "项目"

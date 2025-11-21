@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <list string="笔记本" default_order="write_date desc">
                 <field name="name"/>
+                <field name="project_id"/>
                 <field name="data_source_id"/>
                 <field name="category_id"/>
                 <field name="owner_id"/>
@@ -15,6 +16,17 @@
                 <field name="last_run"/>
             </list>
         </field>
+    </record>
+
+
+
+    <!-- Action used by form header button; keep before view to avoid forward-ref issues -->
+    <record id="action_devops_notebook_cell_add" model="ir.actions.act_window">
+        <field name="name">添加单元格</field>
+        <field name="res_model">devops.notebook.cell</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_notebook_id': active_id}</field>
     </record>
 
     <record id="view_devops_notebook_form" model="ir.ui.view">
@@ -33,12 +45,22 @@
                             type="object"
                             string="查看执行历史"
                             class="oe_link"/>
+                    <button name="action_clear_all_outputs"
+                            type="object"
+                            string="清空全部输出"
+                            class="btn-secondary"
+                            confirm="确认清空该笔记本所有单元格的输出？"/>
+                    <button name="%(action_devops_notebook_cell_add)d"
+                            type="action"
+                            string="添加单元格"
+                            class="btn-secondary"/>
                 </header>
                 <sheet>
                     <div class="o_devops_layout">
                         <div class="o_devops_meta_panel">
                             <group class="o_devops_meta_fields">
                                 <field name="name"/>
+                                <field name="project_id" options="{'no_create': False}"/>
                                 <field name="owner_id" options="{'no_create': True}"/>
                                 <field name="data_source_id" options="{'no_create': False}"/>
                                 <field name="category_id" options="{'no_create': False}"/>
@@ -85,7 +107,11 @@
                         <div class="o_devops_nb_workspace o_devops_nb_main">
                             <div class="o_devops_nb_editor">
                                 <field name="cell_ids" context="{'default_notebook_id': id}">
-                                    <kanban class="o_devops_nb_cells" quick_create="false" editable="bottom" default_group_by="">
+                                    <kanban class="o_devops_nb_cells"
+                                            quick_create="false"
+                                            create="false"
+                                            editable="false"
+                                            default_group_by="">
                                         <field name="sequence"/>
                                         <field name="cell_label"/>
                                         <field name="cell_type"/>
@@ -107,6 +133,11 @@
                                                                     type="object"
                                                                     string="Run"
                                                                     class="btn btn-sm btn-primary me-2"/>
+                                                            <button name="action_clear_output"
+                                                                    type="object"
+                                                                    string="清空输出"
+                                                                    class="btn btn-sm btn-outline-secondary me-2"
+                                                                    attrs="{'invisible': [('output_text','=',False), ('output_html','=',False)]}"/>
                                                             <button name="action_delete_cell"
                                                                     type="object"
                                                                     string="删除"
@@ -142,11 +173,13 @@
         <field name="arch" type="xml">
             <search string="Notebooks">
                 <field name="name"/>
+                <field name="project_id"/>
                 <field name="owner_id"/>
                 <filter name="has_failures" string="Has Errors" domain="[('failed_cells', '>', 0)]"/>
                 <field name="category_id"/>
                 <filter name="public_category" string="Public" domain="[('category_id.is_public', '=', True)]"/>
                 <group expand="0" string="Group By">
+                    <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
                     <filter name="group_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
                     <filter name="group_category" string="Category" context="{'group_by': 'category_id'}"/>
                 </group>
@@ -173,7 +206,7 @@
         <field name="name">devops.notebook.cell.form</field>
         <field name="model">devops.notebook.cell</field>
         <field name="arch" type="xml">
-            <form string="Notebook Cell">
+            <form string="Notebook Cell" class="o_nb_modal_form">
                 <header>
                     <button name="action_run" string="Run" type="object" class="btn-primary"/>
                 </header>
@@ -185,27 +218,14 @@
                         <field name="status" readonly="1"/>
                         <field name="elapsed_ms" readonly="1"/>
                     </group>
-                    <field name="input_source" widget="text"/>
+                    <field name="input_source" widget="text" class="o_nb_modal_input"/>
                     <field name="output_html" widget="html" readonly="1"/>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="view_devops_notebook_list" model="ir.ui.view">
-        <field name="name">devops.notebook.list</field>
-        <field name="model">devops.notebook</field>
-        <field name="arch" type="xml">
-            <list string="Notebooks" default_order="write_date desc">
-                <field name="name"/>
-                <field name="owner_id"/>
-                <field name="data_source_id"/>
-                <field name="category_id"/>
-                <field name="cell_total"/>
-                <field name="last_run"/>
-            </list>
-        </field>
-    </record>
+    <!-- 第二个重复的 list 视图删除 -->
 
     <record id="view_devops_notebook_schedule_tree" model="ir.ui.view">
         <field name="name">devops.notebook.schedule.tree</field>
@@ -213,6 +233,7 @@
         <field name="arch" type="xml">
             <list string="Notebook Schedules">
                 <field name="name"/>
+                <field name="project_id"/>
                 <field name="notebook_id"/>
                 <field name="start_datetime"/>
                 <field name="end_datetime"/>
@@ -289,7 +310,7 @@
     </record>
 
     <record id="action_devops_notebook_category" model="ir.actions.act_window">
-        <field name="name">笔记本分类</field>
+        <field name="name">Notebook Categories</field>
         <field name="res_model">devops.notebook.category</field>
         <field name="view_mode">list,form</field>
     </record>
@@ -355,6 +376,7 @@
         <field name="arch" type="xml">
             <list string="执行历史" default_order="start_datetime desc">
                 <field name="name"/>
+                <field name="project_id"/>
                 <field name="notebook_id"/>
                 <field name="schedule_id"/>
                 <field name="trigger_type"/>
@@ -373,13 +395,22 @@
         <field name="arch" type="xml">
             <form string="执行详情">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_mails"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-envelope">
+                            <field name="mail_ids" widget="statinfo" string="邮件"/>
+                        </button>
+                    </div>
                     <group>
-                        <field name="name" readonly="1"/>
-                        <field name="notebook_id" readonly="1"/>
-                        <field name="schedule_id" readonly="1"/>
-                        <field name="trigger_type" readonly="1"/>
-                        <field name="state" readonly="1"/>
-                        <field name="user_id" readonly="1"/>
+                <field name="name" readonly="1"/>
+                <field name="project_id" readonly="1"/>
+                <field name="notebook_id" readonly="1"/>
+                <field name="schedule_id" readonly="1"/>
+                <field name="trigger_type" readonly="1"/>
+                <field name="state" readonly="1"/>
+                <field name="user_id" readonly="1"/>
                     </group>
                     <group>
                         <field name="start_datetime" readonly="1"/>
@@ -403,11 +434,13 @@
             <search string="执行历史">
                 <field name="notebook_id"/>
                 <field name="schedule_id"/>
+                <field name="project_id"/>
                 <field name="user_id"/>
                 <filter name="filter_failed" string="失败" domain="[('state', '=', 'failed')]"/>
                 <filter name="filter_manual" string="手动" domain="[('trigger_type', '=', 'manual')]"/>
                 <filter name="filter_schedule" string="定时" domain="[('trigger_type', '=', 'schedule')]"/>
                 <group expand="0" string="分组">
+                    <filter name="group_project" string="项目" context="{'group_by': 'project_id'}"/>
                     <filter name="group_notebook" string="笔记本" context="{'group_by': 'notebook_id'}"/>
                     <filter name="group_schedule" string="定时任务" context="{'group_by': 'schedule_id'}"/>
                     <filter name="group_state" string="状态" context="{'group_by': 'state'}"/>

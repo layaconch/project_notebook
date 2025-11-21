@@ -17,8 +17,8 @@
 - 其余依赖使用官方镜像自带的 Python 包
 
 ## 安装步骤
-1. 将本仓库克隆至自定义 addons 目录（例：`/mnt/extra-addons/devops`）。
-2. 确保目录名称为 `devops`。
+1. 将本仓库克隆至自定义 addons 目录（例：`/mnt/extra-addons/project_notebook`）。
+2. 确保目录名称为 `project_notebook`。
 3. 在 `odoo.conf` 中加入该路径，或配置 `ODOO_ADDONS_PATH`。
 4. 重启 Odoo 服务。
 5. 在 Apps 中更新应用列表，安装“DevOps Operations Platform”（建议开启开发者模式）。
@@ -26,7 +26,7 @@
 ## 升级方式
 拉取最新代码后，重启 Odoo（如有需要），并执行：
 ```bash
-odoo-bin -d <数据库名> -u devops --stop-after-init
+odoo-bin -d <数据库名> -u project_notebook --stop-after-init
 ```
 即可更新模块的模型、视图、Cron 与翻译。
 

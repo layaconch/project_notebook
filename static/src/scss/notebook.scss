@@ -94,6 +94,12 @@
     border: 1px solid #d6e4ff;
     padding: 10px;
   }
+  .o_nb_modal_input textarea {
+    font-family: 'Source Code Pro', monospace;
+    min-height: 280px;
+    width: 100%;
+    resize: both;
+  }
   .o_nb_output_html {
     border-left: 3px solid #ccc;
     padding-left: 12px;
@@ -195,5 +201,71 @@
   }
   tr:hover td {
     background: #eef2ff;
+  }
+}
+
+.o_dialog_container,
+.modal-content {
+  .o_nb_modal_input textarea {
+    width: 100%;
+    min-height: 280px;
+    font-family: 'Source Code Pro', monospace;
+    resize: both;
+  }
+}
+
+.modal-dialog {
+  max-width: 95vw;
+  width: auto !important;
+  min-width: 640px;
+  max-height: 95vh;
+  resize: both;
+  overflow: auto;
+}
+
+.modal-dialog.o_nb_maximized {
+  width: 95vw !important;
+  height: 95vh !important;
+  max-width: none;
+  max-height: none;
+}
+
+.modal.o_nb_modal_fullscreen {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: stretch;
+  .modal-dialog {
+    margin: 0;
+    width: 100% !important;
+    max-width: none;
+    height: 100% !important;
+    max-height: none;
+    border-radius: 0;
+  }
+  .modal-content {
+    height: 100%;
+  }
+}
+
+.o_nb_modal_form {
+  .o_form_sheet_bg {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .o_form_sheet {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .o_nb_modal_input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .o_nb_modal_input textarea {
+    flex: 1;
+    min-height: auto;
+    resize: vertical;
   }
 }

@@ -3,28 +3,54 @@
     <record id="res_config_settings_view_form_devops" model="ir.ui.view">
         <field name="name">res.config.settings.view.form.devops</field>
         <field name="model">res.config.settings</field>
-        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="inherit_id" ref="project.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
-                <div class="app_settings_block" data-key="devops" string="DevOps">
-                    <h2>DevOps</h2>
-                    <div class="row mt16 o_setting_container">
-                        <div class="col-12 col-lg-6">
-                            <div class="o_setting_box">
-                                <div class="o_setting_left_pane">
-                                    <field name="devops_default_data_source_id" options="{'no_create_edit': True}"/>
-                                </div>
-                                <div class="o_setting_right_pane">
-                                    <label for="devops_default_data_source_id"/>
-                                    <div class="text-muted">
-                                        Default data source used when creating new DevOps notebooks.
+            <xpath expr="//app[@name='project']" position="inside">
+                <block title="Notebook" name="devops_notebook_defaults">
+                    <setting string="Default Data Source" help="Default data source used when creating a new notebook.">
+                        <field name="devops_default_data_source_id" options="{'no_create_edit': True}"/>
+                    </setting>
+                </block>
+                <block title="Outgoing Mail" name="devops_mail_settings">
+                    <setting string="API Token" help="Token for /mail/api/send_mail; customize as needed.">
+                        <field name="devops_mail_api_token" placeholder="devops-mail-token"/>
+                    </setting>
+                    <setting string="Default Sender" help="Address used by /mail/api/send_mail; should match SMTP login.">
+                        <field name="devops_mail_from_address" class="w-100" placeholder="no-reply@example.com"/>
+                    </setting>
+                    <div class="row mt-2 gx-3">
+                        <div class="col-6">
+                            <setting string="SMTP Server" help="Dedicated SMTP for the notebook mail API; leave blank to use system default.">
+                                <field name="devops_mail_smtp_host" placeholder="smtp.example.com" class="w-100"/>
+                                <div class="d-flex align-items-center gap-3 mt-2 flex-wrap">
+                                    <div class="d-flex align-items-center" style="min-width: 160px;">
+                                        <span class="me-2 text-muted">Port</span>
+                                        <field name="devops_mail_smtp_port" placeholder="465/587/25" class="w-50"/>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3 flex-wrap">
+                                        <div class="d-flex align-items-center gap-1">
+                                            <field name="devops_mail_smtp_use_ssl"/>
+                                            <label for="devops_mail_smtp_use_ssl" class="mb-0">SSL</label>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <field name="devops_mail_smtp_use_tls"/>
+                                            <label for="devops_mail_smtp_use_tls" class="mb-0">STARTTLS</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </setting>
+                        </div>
+                        <div class="col-6">
+                            <setting string="SMTP Authentication" help="Enable to use username/password; leave unchecked for anonymous SMTP.">
+                                <field name="devops_mail_smtp_require_auth"/>
+                                <field name="devops_mail_smtp_user" placeholder="no-reply@example.com" class="w-100"/>
+                                <field name="devops_mail_smtp_password" password="True" class="w-100"/>
+                            </setting>
                         </div>
                     </div>
-                </div>
+                </block>
             </xpath>
         </field>
     </record>
+
 </odoo>
