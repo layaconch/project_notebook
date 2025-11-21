@@ -1,0 +1,2 @@
+# project_notebook
+odoo_project_notebook
