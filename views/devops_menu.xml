@@ -13,8 +13,6 @@
     <menuitem id="menu_devops_settings" name="Notebook Settings" parent="project.menu_project_config" sequence="910" groups="base.group_system"/>
     <menuitem id="menu_devops_data_sources" name="Data Sources" parent="menu_devops_settings"
               action="action_devops_data_source" sequence="10" groups="base.group_system"/>
-    <menuitem id="menu_devops_notebook_categories" name="Notebook Categories" parent="menu_devops_settings"
-              action="action_devops_notebook_category" sequence="20" groups="base.group_system"/>
     <menuitem id="menu_devops_notebook_schedule" name="Schedules" parent="menu_devops_notebooks"
               action="action_devops_notebook_schedule" sequence="20" groups="base.group_system"/>
     <menuitem id="menu_devops_notebook_runs" name="Run History" parent="menu_devops_notebooks"

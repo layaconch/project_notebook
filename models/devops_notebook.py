@@ -52,9 +52,6 @@ class DevOpsNotebook(models.Model):
         string="Data Source",
         default=lambda self: self._default_data_source(),
     )
-    category_id = fields.Many2one(
-        "devops.notebook.category", string="Category", tracking=True
-    )
     execution_mode = fields.Selection(
         [
             ("immediate", "Run Immediately"),
@@ -174,6 +171,11 @@ class DevOpsNotebook(models.Model):
 
     @api.model
     def _default_data_source(self):
+        default_project_id = self.env.context.get("default_project_id")
+        if default_project_id:
+            project = self.env["project.project"].browse(default_project_id).exists()
+            if project and project.notebook_data_source_id:
+                return project.notebook_data_source_id.id
         param = (
             self.env["ir.config_parameter"]
             .sudo()
@@ -276,6 +278,7 @@ class DevOpsNotebookCell(models.Model):
             ("python", "Python"),
             ("sql", "SQL"),
             ("mail", "Mail"),
+            ("richtext", "Rich Text"),
         ],
         required=True,
     )
@@ -354,6 +357,10 @@ class DevOpsNotebookCell(models.Model):
                     execution_context=execution_context
                 )
                 output_html = "<pre>%s</pre>" % html_escape(output_text or "")
+            elif self.cell_type == "richtext":
+                # Treat input as HTML; render directly and keep raw text
+                output_text = self.input_source or ""
+                output_html = self.input_source or ""
             elif self.cell_type == "sql":
                 sql_result = self._exec_sql()
                 if isinstance(sql_result, dict):
@@ -783,6 +790,16 @@ class DevOpsNotebookCell(models.Model):
             for row in body_rows
         )
         return f"<table class='o_devops_table'><thead><tr>{header_html}</tr></thead><tbody>{body_html}</tbody></table>"
+
+
+class ProjectProject(models.Model):
+    _inherit = "project.project"
+
+    notebook_data_source_id = fields.Many2one(
+        "devops.data.source",
+        string="Default Notebook Data Source",
+        help="Default data source when creating notebooks under this project.",
+    )
 
 
 class DevOpsNotebookSchedule(models.Model):

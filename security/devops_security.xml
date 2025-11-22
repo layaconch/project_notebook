@@ -4,7 +4,7 @@
         <field name="name">DevOps Notebook - user access</field>
         <field name="model_id" ref="model_devops_notebook"/>
         <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-        <field name="domain_force">['|','|','|',('category_id.is_public','=',True),('owner_id','=',user.id),('category_id','=',False),('category_id.group_ids','in',user.groups_id.ids)]</field>
+        <field name="domain_force">[(1,'=',1)]</field>
     </record>
 
     <record id="devops_notebook_rule_admin" model="ir.rule">
@@ -18,7 +18,7 @@
         <field name="name">DevOps Notebook Cell - user access</field>
         <field name="model_id" ref="model_devops_notebook_cell"/>
         <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-        <field name="domain_force">['|','|','|',('notebook_id.category_id.is_public','=',True),('notebook_id.owner_id','=',user.id),('notebook_id.category_id','=',False),('notebook_id.category_id.group_ids','in',user.groups_id.ids)]</field>
+        <field name="domain_force">[(1,'=',1)]</field>
     </record>
 
     <record id="devops_notebook_cell_rule_admin" model="ir.rule">

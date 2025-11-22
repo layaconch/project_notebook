@@ -8,7 +8,6 @@
                 <field name="name"/>
                 <field name="project_id"/>
                 <field name="data_source_id"/>
-                <field name="category_id"/>
                 <field name="owner_id"/>
                 <field name="cell_total"/>
                 <field name="execution_count"/>
@@ -60,7 +59,7 @@
                         <button name="action_open_project_wiki"
                                 type="object"
                                 class="oe_stat_button"
-                                attrs="{'invisible': [('project_id','=',False)]}">
+                                invisible="not project_id">
                             <field name="wiki_page_count" string="Wiki Pages" widget="statinfo"/>
                         </button>
                     </div>
@@ -71,7 +70,6 @@
                                 <field name="project_id" options="{'no_create': False}"/>
                                 <field name="owner_id" options="{'no_create': True}"/>
                                 <field name="data_source_id" options="{'no_create': False}"/>
-                                <field name="category_id" options="{'no_create': False}"/>
                                 <field name="execution_mode" widget="devops_execution_mode"/>
                                 <field name="cell_total" readonly="1"/>
                                 <field name="execution_count" readonly="1"/>
@@ -184,12 +182,9 @@
                 <field name="project_id"/>
                 <field name="owner_id"/>
                 <filter name="has_failures" string="Has Errors" domain="[('failed_cells', '>', 0)]"/>
-                <field name="category_id"/>
-                <filter name="public_category" string="Public" domain="[('category_id.is_public', '=', True)]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_project" string="Project" context="{'group_by': 'project_id'}"/>
                     <filter name="group_owner" string="Owner" context="{'group_by': 'owner_id'}"/>
-                    <filter name="group_category" string="Category" context="{'group_by': 'category_id'}"/>
                 </group>
             </search>
         </field>
@@ -469,6 +464,18 @@
         <field name="res_model">devops.notebook</field>
         <field name="view_mode">list,form,kanban,graph,pivot</field>
         <field name="context">{'default_owner_id': uid}</field>
+    </record>
+
+    <!-- Project default notebook data source -->
+    <record id="project_project_view_form_notebook_datasource" model="ir.ui.view">
+        <field name="name">project.project.form.notebook.datasource</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='settings']//group" position="inside">
+                <field name="notebook_data_source_id" options="{'no_create': False}"/>
+            </xpath>
+        </field>
     </record>
 
 </odoo>

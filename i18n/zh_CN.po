@@ -805,6 +805,11 @@ msgid "Mail"
 msgstr ""
 
 #. module: project_notebook
+#: model:ir.model.fields.selection,name:project_notebook.selection__devops_notebook_cell__cell_type__richtext
+msgid "Rich Text"
+msgstr "富文本"
+
+#. module: project_notebook
 #: model:ir.actions.act_window,name:project_notebook.action_devops_mail_history
 #: model:ir.ui.menu,name:project_notebook.menu_devops_mail_history
 msgid "Mail History"
