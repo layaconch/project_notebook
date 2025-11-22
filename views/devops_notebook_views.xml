@@ -221,7 +221,11 @@
                         <field name="status" readonly="1"/>
                         <field name="elapsed_ms" readonly="1"/>
                     </group>
-                    <field name="input_source" widget="text" class="o_nb_modal_input"/>
+                    <field name="input_source" widget="html" class="o_nb_modal_input"
+                           invisible="cell_type not in ('markdown','richtext')"
+                           options="{'sanitize': False}"/>
+                    <field name="input_source" widget="text" class="o_nb_modal_input"
+                           invisible="cell_type in ('markdown','richtext')"/>
                     <field name="output_html" widget="html" readonly="1"/>
                 </sheet>
             </form>
