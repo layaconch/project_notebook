@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "exported_at": 1732200000,
+  "notebook": {
+    "name": "Rich Text Demo",
+    "description": "示例：展示富文本输入的排版、样式和媒体占位。",
+    "execution_mode": "immediate"
+  },
+  "cells": [
+    {
+      "sequence": 10,
+      "cell_type": "richtext",
+      "input_source": "<h1 style=\"color:#6c63ff;\">富文本标题示例</h1><p>这里是 <strong>加粗</strong>、<em>斜体</em>、<span style=\"color:#ff6b6b;\">彩色文字</span>，以及一个 <a href=\"https://www.odoo.com\" target=\"_blank\">外链</a>。</p><ul><li>要点一：支持有序/无序列表</li><li>要点二：可插入链接、样式</li><li>要点三：可混排图文</li></ul><blockquote>“富文本适合编写说明、文档、公告。”</blockquote>"
+    },
+    {
+      "sequence": 20,
+      "cell_type": "richtext",
+      "input_source": "<h2>表格与徽章</h2><table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;width:100%;\"><thead><tr><th>字段</th><th>示例</th><th>说明</th></tr></thead><tbody><tr><td>颜色徽章</td><td><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">Info</span></td><td>用 span+背景色模拟徽章</td></tr><tr><td>高亮</td><td><span style=\"background:#FFF3BF;\">高亮文本</span></td><td>提示注意事项</td></tr><tr><td>代码片段</td><td><code>SELECT * FROM table;</code></td><td>行内代码</td></tr></tbody></table>"
+    },
+    {
+      "sequence": 30,
+      "cell_type": "richtext",
+      "input_source": "<h2>图片占位</h2><p>可粘贴图片，或放置占位：</p><div style=\"border:1px dashed #ccc;padding:16px;text-align:center;color:#888;\">在此粘贴/拖拽图片</div>"
+    }
+  ]
+}
