@@ -1,26 +1,31 @@
 {
   "version": "1.0",
-  "exported_at": 1732200000,
+  "exported_at": 1732205000,
   "notebook": {
     "name": "Rich Text Demo",
-    "description": "示例：展示富文本输入的排版、样式和媒体占位。",
+    "description": "展示富文本编辑器的常用功能：标题、列表、表格、链接、徽章、图片占位、引用等。",
     "execution_mode": "immediate"
   },
   "cells": [
     {
       "sequence": 10,
       "cell_type": "richtext",
-      "input_source": "<h1 style=\"color:#6c63ff;\">富文本标题示例</h1><p>这里是 <strong>加粗</strong>、<em>斜体</em>、<span style=\"color:#ff6b6b;\">彩色文字</span>，以及一个 <a href=\"https://www.odoo.com\" target=\"_blank\">外链</a>。</p><ul><li>要点一：支持有序/无序列表</li><li>要点二：可插入链接、样式</li><li>要点三：可混排图文</li></ul><blockquote>“富文本适合编写说明、文档、公告。”</blockquote>"
+      "input_source": "<h1 style=\"color:#6c63ff;\">Elon Musk &amp; Key Ventures</h1><p><strong>马斯克</strong> 的主要公司：<a href=\"https://www.spacex.com\" target=\"_blank\">SpaceX</a>、<a href=\"https://www.tesla.com\" target=\"_blank\">Tesla</a>、<a href=\"https://neuralink.com\" target=\"_blank\">Neuralink</a>、<a href=\"https://www.starlink.com\" target=\"_blank\">Starlink</a>。</p><ul><li>SpaceX：可重复使用火箭，卫星互联网（Starlink）。</li><li>Tesla：电动车、储能与超级充电网络。</li><li>Neuralink：脑机接口，用于医疗和增强体验。</li><li>Boring Company：地下隧道与交通方案。</li></ul><p><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">链接、加粗、颜色、徽章</span> —— 富文本都可以轻松编辑。</p>"
     },
     {
       "sequence": 20,
       "cell_type": "richtext",
-      "input_source": "<h2>表格与徽章</h2><table border=\"1\" cellpadding=\"6\" style=\"border-collapse:collapse;width:100%;\"><thead><tr><th>字段</th><th>示例</th><th>说明</th></tr></thead><tbody><tr><td>颜色徽章</td><td><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">Info</span></td><td>用 span+背景色模拟徽章</td></tr><tr><td>高亮</td><td><span style=\"background:#FFF3BF;\">高亮文本</span></td><td>提示注意事项</td></tr><tr><td>代码片段</td><td><code>SELECT * FROM table;</code></td><td>行内代码</td></tr></tbody></table>"
+      "input_source": "<h2>产品/项目快照</h2><table border=\"0\" cellpadding=\"8\" style=\"border-collapse:collapse;width:100%;text-align:left;\">  <thead style=\"background:#f3f4f6;\">    <tr><th>项目</th><th>一句话</th><th>状态</th></tr>  </thead>  <tbody>    <tr><td>SpaceX</td><td>重用火箭 + 轨道发射</td><td><span style=\"background:#DCFCE7;padding:4px 8px;border-radius:6px;\">Active</span></td></tr>    <tr><td>Starlink</td><td>低轨卫星互联网</td><td><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">Scaling</span></td></tr>    <tr><td>Tesla</td><td>电动车 + 储能 + FSD</td><td><span style=\"background:#FEE2E2;padding:4px 8px;border-radius:6px;\">R&amp;D</span></td></tr>    <tr><td>Neuralink</td><td>脑机接口</td><td><span style=\"background:#FFE6B3;padding:4px 8px;border-radius:6px;\">Clinical</span></td></tr>  </tbody></table><p><code>提示</code>：表格、徽章、行内代码都可在富文本中编辑。</p>"
     },
     {
       "sequence": 30,
       "cell_type": "richtext",
-      "input_source": "<h2>图片占位</h2><p>可粘贴图片，或放置占位：</p><div style=\"border:1px dashed #ccc;padding:16px;text-align:center;color:#888;\">在此粘贴/拖拽图片</div>"
+      "input_source": "<h2>故事线 &amp; 媒体</h2><ol><li>2002：SpaceX 成立，目标降低航天成本。</li><li>2012：Dragon 首次与 ISS 对接，开启商业补给。</li><li>2020：载人 Dragon Demo-2 首次送宇航员上站。</li><li>现在：推进 Starship、星链全球组网。</li></ol><blockquote>“让生命成为多行星物种。” — SpaceX 使命</blockquote><hr/><p>图片占位：</p><div style=\"border:1px dashed #ccc;padding:16px;text-align:center;color:#888;\">拖拽/粘贴图片到此区域</div>"
+    },
+    {
+      "sequence": 40,
+      "cell_type": "richtext",
+      "input_source": "<h2>排版玩法</h2><p><strong>高亮：</strong><span style=\"background:#FFF3BF;\">重点段落</span>；<strong>链接按钮：</strong><a href=\"https://www.tesla.com/AI\" style=\"background:#4F46E5;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;\" target=\"_blank\">Tesla AI</a></p><p><strong>代码块：</strong></p><pre style=\"background:#111827;color:#E5E7EB;padding:12px;border-radius:8px;\"># Falcon 9 reuse\nfor launch in range(1, 10):\n    print(\"Launching &amp; landing booster\", launch)</pre><p>带图标列表：</p><ul><li>✅ 成本下降，重用火箭</li><li>🚀 Starship 重型运载</li><li>🧠 Neuralink 脑机接口</li><li>🔋 Tesla 储能与电动车</li></ul>"
     }
   ]
 }
