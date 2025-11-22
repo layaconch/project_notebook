@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "exported_at": 1732205000,
+  "exported_at": 1732209000,
   "notebook": {
     "name": "Rich Text Demo",
     "description": "展示富文本编辑器的常用功能：标题、列表、表格、链接、徽章、图片占位、引用等。",
@@ -15,7 +15,7 @@
     {
       "sequence": 20,
       "cell_type": "richtext",
-      "input_source": "<h2>产品/项目快照</h2><table border=\"0\" cellpadding=\"8\" style=\"border-collapse:collapse;width:100%;text-align:left;\">  <thead style=\"background:#f3f4f6;\">    <tr><th>项目</th><th>一句话</th><th>状态</th></tr>  </thead>  <tbody>    <tr><td>SpaceX</td><td>重用火箭 + 轨道发射</td><td><span style=\"background:#DCFCE7;padding:4px 8px;border-radius:6px;\">Active</span></td></tr>    <tr><td>Starlink</td><td>低轨卫星互联网</td><td><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">Scaling</span></td></tr>    <tr><td>Tesla</td><td>电动车 + 储能 + FSD</td><td><span style=\"background:#FEE2E2;padding:4px 8px;border-radius:6px;\">R&amp;D</span></td></tr>    <tr><td>Neuralink</td><td>脑机接口</td><td><span style=\"background:#FFE6B3;padding:4px 8px;border-radius:6px;\">Clinical</span></td></tr>  </tbody></table><p><code>提示</code>：表格、徽章、行内代码都可在富文本中编辑。</p>"
+      "input_source": "<h2>产品/项目快照</h2><table border=\"0\" cellpadding=\"8\" style=\"border-collapse:collapse;width:100%;text-align:left;\"><thead style=\"background:#f3f4f6;\"><tr><th>项目</th><th>一句话</th><th>状态</th></tr></thead><tbody><tr><td>SpaceX</td><td>重用火箭 + 轨道发射</td><td><span style=\"background:#DCFCE7;padding:4px 8px;border-radius:6px;\">Active</span></td></tr><tr><td>Starlink</td><td>低轨卫星互联网</td><td><span style=\"background:#E0E7FF;padding:4px 8px;border-radius:6px;\">Scaling</span></td></tr><tr><td>Tesla</td><td>电动车 + 储能 + FSD</td><td><span style=\"background:#FEE2E2;padding:4px 8px;border-radius:6px;\">R&amp;D</span></td></tr><tr><td>Neuralink</td><td>脑机接口</td><td><span style=\"background:#FFE6B3;padding:4px 8px;border-radius:6px;\">Clinical</span></td></tr></tbody></table><p><code>提示</code>：表格、徽章、行内代码都可在富文本中编辑。</p>"
     },
     {
       "sequence": 30,
@@ -26,6 +26,26 @@
       "sequence": 40,
       "cell_type": "richtext",
       "input_source": "<h2>排版玩法</h2><p><strong>高亮：</strong><span style=\"background:#FFF3BF;\">重点段落</span>；<strong>链接按钮：</strong><a href=\"https://www.tesla.com/AI\" style=\"background:#4F46E5;color:#fff;padding:6px 12px;border-radius:6px;text-decoration:none;\" target=\"_blank\">Tesla AI</a></p><p><strong>代码块：</strong></p><pre style=\"background:#111827;color:#E5E7EB;padding:12px;border-radius:8px;\"># Falcon 9 reuse\nfor launch in range(1, 10):\n    print(\"Launching &amp; landing booster\", launch)</pre><p>带图标列表：</p><ul><li>✅ 成本下降，重用火箭</li><li>🚀 Starship 重型运载</li><li>🧠 Neuralink 脑机接口</li><li>🔋 Tesla 储能与电动车</li></ul>"
+    },
+    {
+      "sequence": 50,
+      "cell_type": "richtext",
+      "input_source": "<h2>多列布局</h2><div style=\"display:flex;gap:12px;flex-wrap:wrap;\"><div style=\"flex:1;min-width:220px;padding:10px;border:1px solid #e5e7eb;border-radius:8px;\"><h4>火箭</h4><p>Falcon 9 / Falcon Heavy / Starship</p></div><div style=\"flex:1;min-width:220px;padding:10px;border:1px solid #e5e7eb;border-radius:8px;\"><h4>汽车</h4><p>Model S / 3 / X / Y，Cybertruck</p></div><div style=\"flex:1;min-width:220px;padding:10px;border:1px solid #e5e7eb;border-radius:8px;\"><h4>脑机</h4><p>Neuralink N1 植入，脑机实验</p></div></div>"
+    },
+    {
+      "sequence": 60,
+      "cell_type": "richtext",
+      "input_source": "<h2>提示与标签</h2><p><span style=\"background:#DBEAFE;color:#1E40AF;padding:4px 8px;border-radius:6px;\">INFO</span> 通过富文本快速写 SOP 与公告。</p><p><span style=\"background:#FEF3C7;color:#92400E;padding:4px 8px;border-radius:6px;\">WARNING</span> 操作前请确认安全清单。</p><p><span style=\"background:#DCFCE7;color:#166534;padding:4px 8px;border-radius:6px;\">SUCCESS</span> 复用火箭已落船。</p>"
+    },
+    {
+      "sequence": 70,
+      "cell_type": "richtext",
+      "input_source": "<h2>时间线</h2><ul style=\"list-style:none;padding-left:0;\"><li style=\"margin-bottom:8px;\"><span style=\"background:#E0E7FF;border-radius:50%;padding:4px 8px;\">2002</span> 创建 SpaceX，目标降低航天成本。</li><li style=\"margin-bottom:8px;\"><span style=\"background:#E0E7FF;border-radius:50%;padding:4px 8px;\">2012</span> Dragon 首次对接 ISS。</li><li style=\"margin-bottom:8px;\"><span style=\"background:#E0E7FF;border-radius:50%;padding:4px 8px;\">2020</span> Demo-2 载人首飞。</li><li style=\"margin-bottom:8px;\"><span style=\"background:#E0E7FF;border-radius:50%;padding:4px 8px;\">Now</span> Starship / Starlink 全球组网。</li></ul>"
+    },
+    {
+      "sequence": 80,
+      "cell_type": "richtext",
+      "input_source": "<h2>常用排版混合</h2><p>结合 <strong>文字</strong>、<em>样式</em>、<code>行内代码</code>、<u>下划线</u>、以及 <mark>高亮</mark>。</p><p>可放置占位图片：</p><div style=\"border:2px dashed #cbd5e1;padding:18px;text-align:center;color:#94a3b8;\">拖拽或粘贴图片到此</div><p>可加入分割线：</p><hr/><p>以及快速插入链接：<a href=\"https://neuralink.com\" target=\"_blank\">Neuralink 官网</a>。</p>"
     }
   ]
 }
