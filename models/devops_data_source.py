@@ -17,6 +17,7 @@ class DevOpsDataSource(models.Model):
     name = fields.Char(required=True)
     source_type = fields.Selection(
         [
+            ("none", "No Data Source"),
             ("postgresql", "PostgreSQL"),
             ("oracle", "Oracle"),
             ("csv", "CSV File"),

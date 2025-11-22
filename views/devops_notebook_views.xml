@@ -53,6 +53,11 @@
                             type="action"
                             string="添加单元格"
                             class="btn-secondary"/>
+                    <button name="action_export_notebook"
+                            type="object"
+                            string="Export"
+                            class="btn-secondary"/>
+                    <button class="btn-secondary o_nb_toggle_all_inputs" type="button">全部收缩/展开</button>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -221,11 +226,14 @@
                         <field name="status" readonly="1"/>
                         <field name="elapsed_ms" readonly="1"/>
                     </group>
-                    <field name="input_source" widget="html" class="o_nb_modal_input"
-                           invisible="cell_type not in ('markdown','richtext')"
-                           options="{'sanitize': False}"/>
-                    <field name="input_source" widget="text" class="o_nb_modal_input"
-                           invisible="cell_type in ('markdown','richtext')"/>
+                    <details class="o_nb_input_collapse" open="open">
+                        <summary>收缩代码</summary>
+                        <field name="input_source" widget="html" class="o_nb_modal_input"
+                               invisible="cell_type not in ('markdown','richtext')"
+                               options="{'sanitize': False}"/>
+                        <field name="input_source" widget="text" class="o_nb_modal_input"
+                               invisible="cell_type in ('markdown','richtext')"/>
+                    </details>
                     <field name="output_html" widget="html" readonly="1"/>
                 </sheet>
             </form>

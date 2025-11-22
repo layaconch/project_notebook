@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="data_source_none" model="devops.data.source">
+        <field name="name">无数据源</field>
+        <field name="source_type">none</field>
+        <field name="description">占位用，不提供数据库连接。</field>
+    </record>
+</odoo>

@@ -31,6 +31,21 @@ msgid "Project wiki action is unavailable. Please update modules."
 msgstr "项目 Wiki 动作不可用，请更新模块。"
 
 #. module: project_notebook
+#: code:addons/project_notebook/models/devops_notebook.py:0
+msgid "SQL cells require a configured data source (not 'No Data Source')."
+msgstr "SQL 单元格需要配置有效的数据源，不能使用“无数据源”。"
+
+#. module: project_notebook
+#: model:ir.model.fields.selection,name:project_notebook.selection__devops_data_source__source_type__none
+msgid "No Data Source"
+msgstr "无数据源"
+
+#. module: project_notebook
+#: model:devops.data.source,name:project_notebook.data_source_none
+msgid "无数据源"
+msgstr "无数据源"
+
+#. module: project_notebook
 #. odoo-python
 #: code:addons/project_notebook/models/devops_data_source.py:0
 msgid "%s (copy)"

@@ -18,3 +18,5 @@ devops_training_faq_manager_access,devops.training.faq.manager,model_devops_trai
 devops_notebook_run_user_access,devops.notebook.run.user,model_devops_notebook_run,project.group_project_user,1,0,0,0
 devops_notebook_run_manager_access,devops.notebook.run.manager,model_devops_notebook_run,project.group_project_manager,1,0,0,0
 devops_notebook_run_admin_access,devops.notebook.run.admin,model_devops_notebook_run,base.group_system,1,0,0,0
+devops_notebook_export_wizard_access,devops.notebook.export.wizard,model_devops_notebook_export_wizard,base.group_user,1,0,0,0
+devops_notebook_import_wizard_access,devops.notebook.import.wizard,model_devops_notebook_import_wizard,base.group_user,1,1,1,0

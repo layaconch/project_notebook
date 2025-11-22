@@ -13,6 +13,7 @@
         "security/devops_training_security.xml",
         "security/devops_schedule_security.xml",
         "security/ir.model.access.csv",
+        "data/no_datasource.xml",
         "views/devops_notebook_views.xml",
         "views/devops_data_source_views.xml",
         "views/devops_requirement_views.xml",
@@ -20,6 +21,7 @@
         "views/res_config_settings_views.xml",
         "views/devops_mail_views.xml",
         "views/devops_training_views.xml",
+        "views/notebook_transfer_views.xml",
         "views/devops_menu.xml",
         "data/devops_notebook_cron.xml"
     ],
@@ -30,6 +32,7 @@
             "project_notebook/static/src/js/notebook_modal_resize.js",
             "project_notebook/static/src/js/view_type_alias.js",
             "project_notebook/static/src/js/error_dialog_clipboard_safe.js",
+            "project_notebook/static/src/js/notebook_toggle_inputs.js",
         ],
     },
     "post_init_hook": "post_init_hook",

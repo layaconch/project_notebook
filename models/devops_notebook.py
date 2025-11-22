@@ -211,6 +211,16 @@ class DevOpsNotebook(models.Model):
         result["context"] = ctx
         return result
 
+    def action_export_notebook(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "devops.notebook.export.wizard",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"active_id": self.id},
+        }
+
     def action_clear_all_outputs(self):
         for notebook in self:
             notebook.cell_ids.action_clear_output()
@@ -295,6 +305,15 @@ class DevOpsNotebookCell(models.Model):
         default="pending",
     )
     elapsed_ms = fields.Float(string="Elapsed (ms)")
+
+    @api.constrains("cell_type", "notebook_id", "notebook_id.data_source_id")
+    def _check_sql_requires_datasource(self):
+        for cell in self:
+            if cell.cell_type != "sql":
+                continue
+            ds = cell.notebook_id.data_source_id
+            if not ds or ds.source_type == "none":
+                raise UserError(_("SQL cells require a configured data source (not 'No Data Source')."))
 
     def _default_sequence(self):
         notebook_id = self.env.context.get("default_notebook_id")
@@ -595,6 +614,8 @@ class DevOpsNotebookCell(models.Model):
         source = self.notebook_id.data_source_id
         if not source:
             raise ValueError("No data source configured for this notebook.")
+        if source.source_type == "none":
+            raise ValueError("SQL cells require a real data source (not 'No Data Source').")
         if source.source_type == "postgresql":
             conn_str = source._build_postgres_dsn()
             if conn_str:
