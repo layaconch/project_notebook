@@ -67,6 +67,7 @@ class DevOpsNotebook(models.Model):
     run_history_ids = fields.One2many(
         "devops.notebook.run", "notebook_id", string="Run History", readonly=True
     )
+    mail_count = fields.Integer(string="Mails", compute="_compute_mail_count")
     cell_total = fields.Integer(compute="_compute_stats", store=True)
     execution_count = fields.Integer(compute="_compute_stats", store=True)
     failed_cells = fields.Integer(compute="_compute_stats", store=True)
@@ -185,6 +186,13 @@ class DevOpsNotebook(models.Model):
             .get_param("devops.default_data_source_id")
         )
         return int(param) if param else False
+
+    def _compute_mail_count(self):
+        Mail = self.env["mail.mail"]
+        for rec in self:
+            rec.mail_count = Mail.search_count(
+                [("model", "=", "devops.notebook"), ("res_id", "=", rec.id)]
+            )
 
     def action_run_now(self):
         self.ensure_one()
@@ -317,6 +325,15 @@ class DevOpsNotebook(models.Model):
         )
         action["context"] = ctx
         return action
+
+    def action_open_mail_history(self):
+        self.ensure_one()
+        action = self.env.ref("mail.action_view_mail_mail", raise_if_not_found=False)
+        if not action:
+            return False
+        result = action.read()[0]
+        result["domain"] = [("model", "=", "devops.notebook"), ("res_id", "=", self.id)]
+        return result
 
     def action_configure_schedule(self):
         self.ensure_one()
