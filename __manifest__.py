@@ -19,6 +19,7 @@
         "views/devops_training_views.xml",
         "views/devops_menu.xml",
         "views/project_project_views.xml",
+        "views/mail_mail_views.xml",
         "data/devops_notebook_cron.xml"
     ],
     "assets": {
