@@ -1119,6 +1119,11 @@ msgid "Owner"
 msgstr "所有者"
 
 #. module: project_notebook
+#: model_terms:ir.ui.view,arch_db:project_notebook.view_devops_notebook_cell_form
+msgid "Seq"
+msgstr "序号"
+
+#. module: project_notebook
 #: model:ir.model.fields.selection,name:project_notebook.selection__devops_training_resource__resource_type__ppt
 msgid "PPT"
 msgstr ""
@@ -1817,3 +1822,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:project_notebook.field_devops_notebook_schedule__project_id
 msgid "Project"
 msgstr "项目"
+
+# Ensure Export stays English in zh_CN
+msgid "Export"
+msgstr "Export"
+
+# Additional UI translations
+msgid "Data Source"
+msgstr "数据源"
+
+msgid "Owner"
+msgstr "所有者"

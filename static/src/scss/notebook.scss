@@ -13,6 +13,28 @@
     display: flex;
     gap: 8px; // tighter spacing between sidebar and editor
   }
+
+  // Top action bar styling
+  .o_form_statusbar .o_statusbar_buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .o_form_statusbar .o_statusbar_buttons .btn {
+    border-radius: 18px;
+    padding: 6px 14px;
+    font-weight: 600;
+  }
+  .o_form_statusbar .o_statusbar_buttons .btn-primary {
+    background: #6c63ff;
+    border-color: #6c63ff;
+  }
+  .o_form_statusbar .o_statusbar_buttons .btn-secondary {
+    background: #eef1f7;
+    color: #444;
+    border-color: #e2e6ef;
+  }
+
   .o_devops_layout {
     display: flex;
     gap: 12px;
@@ -48,6 +70,11 @@
     flex: 1;
     min-width: 0;
   }
+.o_project_nb_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
   .o_notebook_stats {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -88,11 +115,15 @@
   }
   .o_nb_input textarea {
     font-family: 'Source Code Pro', monospace;
-    min-height: 90px;
+    min-height: 180px;
     background: #f0f6ff; // light blue to distinguish input area
     border-radius: 4px;
     border: 1px solid #d6e4ff;
     padding: 10px;
+    resize: both;
+  }
+  .o_nb_input .note-editable {
+    min-height: 180px;
   }
   .o_nb_modal_input textarea {
     font-family: 'Source Code Pro', monospace;

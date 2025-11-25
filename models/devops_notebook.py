@@ -6,6 +6,7 @@ import io
 import re
 import time
 import traceback
+import pickle
 from io import StringIO
 
 from odoo import _, api, fields, models
@@ -69,6 +70,7 @@ class DevOpsNotebook(models.Model):
     cell_total = fields.Integer(compute="_compute_stats", store=True)
     execution_count = fields.Integer(compute="_compute_stats", store=True)
     failed_cells = fields.Integer(compute="_compute_stats", store=True)
+    kernel_state = fields.Binary(string="Kernel State", attachment=True)
 
     def copy(self, default=None):
         default = dict(default or {})
@@ -135,9 +137,10 @@ class DevOpsNotebook(models.Model):
             run_state = "success"
             error_message = False
             execution_context = {"results": [], "by_id": {}, "by_sequence": {}}
+            shared_locals = {}
             try:
                 for cell in notebook.cell_ids.sorted("sequence"):
-                    cell._run_cell(execution_context=execution_context)
+                    cell._run_cell(execution_context=execution_context, shared_locals=shared_locals)
                 end_dt = fields.Datetime.now()
                 notebook.last_run = end_dt
             except Exception:
@@ -226,6 +229,69 @@ class DevOpsNotebook(models.Model):
             notebook.cell_ids.action_clear_output()
         return True
 
+    def action_clear_all_outputs(self):
+        for notebook in self:
+            notebook.cell_ids.action_clear_output()
+        return True
+
+    def action_restart_kernel(self):
+        self.write({"kernel_state": False})
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": _("Kernel Restarted"),
+                "message": _("Kernel state has been cleared."),
+                "type": "success",
+                "sticky": False,
+            },
+        }
+
+    def _get_kernel_locals(self):
+        self.ensure_one()
+        if not self.kernel_state:
+            return {}
+        try:
+            return pickle.loads(base64.b64decode(self.kernel_state))
+        except Exception:
+            return {}
+
+    def _set_kernel_locals(self, locals_dict):
+        self.ensure_one()
+        safe_locals = {}
+        for key, value in locals_dict.items():
+            if key.startswith("__") or key in [
+                "env", "notebook", "cell", "recordset", "print", "cell_results", 
+                "last_result", "get_cell_result", "send_mail"
+            ]:
+                continue
+            try:
+                # Test pickling
+                pickle.dumps(value)
+                safe_locals[key] = value
+            except Exception:
+                pass
+        self.kernel_state = base64.b64encode(pickle.dumps(safe_locals))
+
+    def action_toggle_all_inputs(self):
+        """No-op server action; front-end JS handles toggling."""
+        return True
+
+    def action_add_cell_inline(self):
+        """Create a new cell directly and reload the notebook view."""
+        for notebook in self:
+            next_seq = max(notebook.mapped("cell_ids.sequence") or [0]) + 10
+            notebook.cell_ids.create(
+                {
+                    "notebook_id": notebook.id,
+                    "sequence": next_seq,
+                    "cell_type": "richtext",
+                    "cell_label": f"Cell {next_seq}",
+                    "input_source": "",
+                }
+            )
+        return {"type": "ir.actions.client", "tag": "reload"}
+
     def action_open_run_history(self):
         self.ensure_one()
         action_ref = self.env.ref(
@@ -284,10 +350,9 @@ class DevOpsNotebookCell(models.Model):
     sequence = fields.Integer(default=lambda self: self._default_sequence())
     cell_type = fields.Selection(
         [
-            ("markdown", "Markdown"),
             ("python", "Python"),
+            ("email_python", "Email (Python)"),
             ("sql", "SQL"),
-            ("mail", "Mail"),
             ("richtext", "Rich Text"),
         ],
         required=True,
@@ -305,6 +370,24 @@ class DevOpsNotebookCell(models.Model):
         default="pending",
     )
     elapsed_ms = fields.Float(string="Elapsed (ms)")
+
+    @api.onchange("cell_type")
+    def _onchange_cell_type(self):
+        if self.cell_type == "email_python" and not self.input_source:
+            self.input_source = (
+                "# Sample Email Code\n"
+                "mail = env['mail.mail'].sudo().create({\n"
+                "    'subject': 'Test Subject',\n"
+                "    'email_to': 'test@example.com',\n"
+                "    'body_html': '<p>Hello from Odoo Notebook!</p>',\n"
+                "})\n"
+                "mail.send()\n"
+                "print(f'Mail sent: {mail.id}')"
+            )
+
+    def action_toggle_input(self):
+        """No-op server action; front-end JS handles toggling."""
+        return True
 
     @api.constrains("cell_type", "notebook_id", "notebook_id.data_source_id")
     def _check_sql_requires_datasource(self):
@@ -354,9 +437,9 @@ class DevOpsNotebookCell(models.Model):
     @api.depends("sequence")
     def _compute_label(self):
         for cell in self:
-            cell.cell_label = f"In [{cell.sequence}]" if cell.cell_type != "markdown" else ""
+            cell.cell_label = f"[{cell.sequence}]"
 
-    def _run_cell(self, execution_context=None):
+    def _run_cell(self, execution_context=None, shared_locals=None):
         start = time.time()
         output_text = ""
         output_html = ""
@@ -365,16 +448,8 @@ class DevOpsNotebookCell(models.Model):
         export_filename = False
         structured_data = None
         try:
-            if self.cell_type == "markdown":
-                output_html = self._render_markdown(self.input_source or "")
-                output_text = self.input_source or ""
-            elif self.cell_type == "python":
-                output_text = self._exec_python(execution_context=execution_context)
-                output_html = "<pre>%s</pre>" % html_escape(output_text or "")
-            elif self.cell_type == "mail":
-                output_text, structured_data = self._exec_mail(
-                    execution_context=execution_context
-                )
+            if self.cell_type in ["python", "email_python"]:
+                output_text = self._exec_python(execution_context=execution_context, shared_locals=shared_locals)
                 output_html = "<pre>%s</pre>" % html_escape(output_text or "")
             elif self.cell_type == "richtext":
                 # Treat input as HTML; render directly and keep raw text
@@ -428,14 +503,39 @@ class DevOpsNotebookCell(models.Model):
                 execution_context["by_label"][self.cell_label] = entry
             execution_context["last_result"] = entry
 
-    def _exec_python(self, execution_context=None):
+        if status == "success" and self.cell_type == "sql":
+            val = structured_data
+            try:
+                import pandas as pd
+                if structured_data:
+                    val = pd.DataFrame(structured_data)
+            except ImportError:
+                pass
+            
+            if shared_locals is not None:
+                shared_locals["_"] = val
+            else:
+                kernel_locals = self.notebook_id._get_kernel_locals()
+                kernel_locals["_"] = val
+                self.notebook_id._set_kernel_locals(kernel_locals)
+
+    def _exec_python(self, execution_context=None, shared_locals=None):
         localdict = {
             "env": self.env,
             "notebook": self.notebook_id,
             "cell": self,
             "recordset": self.env[self._name].browse(self.id),
         }
+        
+        # Load kernel state if no shared_locals (individual run)
+        if shared_locals is None:
+            kernel_locals = self.notebook_id._get_kernel_locals()
+            localdict.update(kernel_locals)
+            
         localdict.setdefault("print", builtins.print)
+        if shared_locals:
+            localdict.update(shared_locals)
+
         buffer = StringIO()
         code = self.input_source or ""
         if execution_context is None:
@@ -449,6 +549,19 @@ class DevOpsNotebookCell(models.Model):
         globals_env = {"__builtins__": builtins}
         with contextlib.redirect_stdout(buffer):
             exec(compile(code, "<notebook>", "exec"), globals_env, localdict)
+        
+        if shared_locals is not None:
+            # Update shared_locals with new variables, excluding builtins and internal keys
+            for key, value in localdict.items():
+                if key not in [
+                    "env", "notebook", "cell", "recordset", "print", "cell_results", 
+                    "last_result", "get_cell_result", "__builtins__", "send_mail"
+                ]:
+                    shared_locals[key] = value
+        else:
+            # Save to kernel state if individual run
+            self.notebook_id._set_kernel_locals(localdict)
+
         stdout = buffer.getvalue()
         return stdout.strip()
 
@@ -996,15 +1109,4 @@ class DevOpsNotebookRun(models.Model):
             return False
         result = action.read()[0]
         result["domain"] = [("id", "in", self.mail_ids.ids)]
-        ctx = result.get("context")
-        if isinstance(ctx, str):
-            ctx = safe_eval(ctx)
-        ctx = dict(ctx or {})
-        ctx.update(
-            {
-                "default_devops_run_ids": [self.id],
-                "search_default_devops_run_ids": [self.id],
-            }
-        )
-        result["context"] = ctx
         return result

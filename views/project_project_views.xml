@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_project_kanban_notebook_box" model="ir.ui.view">
+        <field name="name">project.project.kanban.notebook</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_project_kanban_boxes')]" position="inside">
+                <div class="o_project_kanban_box o_project_nb_box">
+                    <a name="action_open_notebooks" type="object">
+                        <div>
+                            <b>
+                                <field name="notebook_count" nolabel="1" class="o_value"/>
+                            </b>
+                            <span class="o_label">Notebooks</span>
+                        </div>
+                    </a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_project_form_notebook_button" model="ir.ui.view">
+        <field name="name">project.project.form.notebook.button</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="action_open_notebooks" icon="fa-book">
+                    <field string="Notebooks" name="notebook_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

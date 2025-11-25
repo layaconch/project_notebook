@@ -9,8 +9,6 @@
 
     <menuitem id="menu_devops_notebooks" name="Notebook Management" parent="menu_devops_root" sequence="10" groups="base.group_user"/>
     <menuitem id="menu_devops_notebooks_list" name="Notebooks" parent="menu_devops_notebooks" action="action_devops_notebook" sequence="10" groups="base.group_user"/>
-    <menuitem id="menu_devops_notebook_import" name="Import Notebook" parent="menu_devops_notebooks"
-              action="action_notebook_import_wizard" sequence="15" groups="base.group_user"/>
 
     <menuitem id="menu_devops_settings" name="Notebook Settings" parent="project.menu_project_config" sequence="910" groups="base.group_system"/>
     <menuitem id="menu_devops_data_sources" name="Data Sources" parent="menu_devops_settings"
@@ -20,5 +18,5 @@
     <menuitem id="menu_devops_notebook_runs" name="Run History" parent="menu_devops_notebooks"
               action="action_devops_notebook_run" sequence="30" groups="base.group_system"/>
     <menuitem id="menu_devops_mail_history" name="Mail History" parent="menu_devops_notebooks"
-              action="action_devops_mail_history" sequence="40" groups="base.group_system"/>
+              action="mail.action_view_mail_mail" sequence="40" groups="base.group_system"/>
 </odoo>

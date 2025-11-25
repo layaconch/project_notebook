@@ -73,21 +73,8 @@ class DevOpsMailApiController(http.Controller):
         with registry.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
             expected = env["ir.config_parameter"].get_param("devops.mail_api_token") or "devops-mail-token"
-            default_from = env["ir.config_parameter"].get_param("devops.mail_from_address")
-            smtp_conf = {
-                "host": env["ir.config_parameter"].get_param("devops.mail_smtp_host"),
-                "port": env["ir.config_parameter"].get_param("devops.mail_smtp_port"),
-                "user": env["ir.config_parameter"].get_param("devops.mail_smtp_user"),
-                "password": env["ir.config_parameter"].get_param("devops.mail_smtp_password"),
-                "use_ssl": env["ir.config_parameter"].get_param("devops.mail_smtp_use_ssl") in ("True", True, "1", 1),
-                "use_tls": env["ir.config_parameter"].get_param("devops.mail_smtp_use_tls") in ("True", True, "1", 1),
-                "require_auth": env["ir.config_parameter"].get_param("devops.mail_smtp_require_auth") in (
-                    "True",
-                    True,
-                    "1",
-                    1,
-                ),
-            }
+            sender_user_id = env["ir.config_parameter"].get_param("devops.mail_sender_user_id")
+            mail_server_param = env["ir.config_parameter"].get_param("devops.mail_server_id")
         if not expected or token != expected:
             return http.Response(
                 json.dumps({"error": "unauthorized"}),
@@ -138,7 +125,16 @@ class DevOpsMailApiController(http.Controller):
             or "",
             "body": payload.get("body") or "",
         }
-        email_from = payload.get("email_from") or default_from
+        email_from = payload.get("email_from")
+        sender_user_email = False
+        if sender_user_id:
+            try:
+                sender_user = env["res.users"].browse(int(sender_user_id)).exists()
+                if sender_user:
+                    sender_user_email = sender_user.email_formatted or sender_user.email
+            except Exception:
+                sender_user_email = False
+        email_from = email_from or sender_user_email
         if email_from:
             vals["email_from"] = email_from
         if attachments_vals:
@@ -149,42 +145,18 @@ class DevOpsMailApiController(http.Controller):
             vals["model"] = "devops.notebook"
             vals["res_id"] = notebook_id
 
-        def ensure_mail_server(environment, conf):
-            host = conf.get("host")
-            if not host:
-                return False
-            enc = "none"
-            if conf.get("use_ssl"):
-                enc = "ssl"
-            elif conf.get("use_tls"):
-                enc = "starttls"
-            port = conf.get("port")
-            try:
-                port = int(port) if port else None
-            except Exception:
-                port = None
-            vals_server = {
-                "name": "DevOps API SMTP",
-                "smtp_host": host,
-                "smtp_encryption": enc,
-            }
-            if port:
-                vals_server["smtp_port"] = port
-            if conf.get("require_auth"):
-                if conf.get("user"):
-                    vals_server["smtp_user"] = conf.get("user")
-                if conf.get("password"):
-                    vals_server["smtp_pass"] = conf.get("password")
-            server = environment["ir.mail_server"].search([("name", "=", "DevOps API SMTP")], limit=1)
-            if server:
-                server.write(vals_server)
-            else:
-                server = environment["ir.mail_server"].create(vals_server)
-            return server.id
-
         with registry.cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
-            server_id = ensure_mail_server(env, smtp_conf)
+            server_id = False
+            if mail_server_param:
+                try:
+                    server_id = int(mail_server_param)
+                except Exception:
+                    server_id = False
+                if server_id:
+                    server = env["ir.mail_server"].browse(server_id).exists()
+                    if not server:
+                        server_id = False
             if server_id:
                 vals["mail_server_id"] = server_id
             mail = env["mail.mail"].create(vals)

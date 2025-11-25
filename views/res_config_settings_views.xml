@@ -15,36 +15,17 @@
                     <setting string="API Token" help="Token for /mail/api/send_mail; customize as needed.">
                         <field name="devops_mail_api_token" placeholder="devops-mail-token"/>
                     </setting>
-                    <setting string="Default Sender" help="Address used by /mail/api/send_mail; should match SMTP login.">
-                        <field name="devops_mail_from_address" class="w-100" placeholder="no-reply@example.com"/>
-                    </setting>
-                    <div class="row mt-2 gx-3">
+                    <div class="row mt-1 gx-3">
                         <div class="col-6">
-                            <setting string="SMTP Server" help="Dedicated SMTP for the notebook mail API; leave blank to use system default.">
-                                <field name="devops_mail_smtp_host" placeholder="smtp.example.com" class="w-100"/>
-                                <div class="d-flex align-items-center gap-3 mt-2 flex-wrap">
-                                    <div class="d-flex align-items-center" style="min-width: 160px;">
-                                        <span class="me-2 text-muted">Port</span>
-                                        <field name="devops_mail_smtp_port" placeholder="465/587/25" class="w-50"/>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                                        <div class="d-flex align-items-center gap-1">
-                                            <field name="devops_mail_smtp_use_ssl"/>
-                                            <label for="devops_mail_smtp_use_ssl" class="mb-0">SSL</label>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-1">
-                                            <field name="devops_mail_smtp_use_tls"/>
-                                            <label for="devops_mail_smtp_use_tls" class="mb-0">STARTTLS</label>
-                                        </div>
-                                    </div>
-                                </div>
+                            <setting string="Sender (User)" help="优先使用此用户邮箱作为发件人。">
+                                <field name="devops_mail_sender_user_id" options="{'no_create': True}"/>
                             </setting>
                         </div>
+                    </div>
+                    <div class="row mt-1 gx-3">
                         <div class="col-6">
-                            <setting string="SMTP Authentication" help="Enable to use username/password; leave unchecked for anonymous SMTP.">
-                                <field name="devops_mail_smtp_require_auth"/>
-                                <field name="devops_mail_smtp_user" placeholder="no-reply@example.com" class="w-100"/>
-                                <field name="devops_mail_smtp_password" password="True" class="w-100"/>
+                            <setting string="Mail Server" help="优先使用已配置的邮件服务器；留空则使用系统默认。">
+                                <field name="devops_mail_server_id" options="{'no_create': True}"/>
                             </setting>
                         </div>
                     </div>

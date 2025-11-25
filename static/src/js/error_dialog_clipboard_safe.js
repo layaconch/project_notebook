@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { patch } from "@web/core/utils/patch";
-import { ErrorDialog } from "@web/core/errors/error_dialogs";
+import { ErrorDialog, RPCErrorDialog } from "@web/core/errors/error_dialogs";
 import { browser } from "@web/core/browser/browser";
 
 function safeCopy(text) {
@@ -31,23 +31,50 @@ function safeCopy(text) {
     });
 }
 
+function buildText(props) {
+    return [
+        props.name,
+        "",
+        props.message,
+        "",
+        props.contextDetails,
+        "",
+        props.traceback ?? "",
+    ].join("\n");
+}
+
 patch(ErrorDialog.prototype, {
     async onClickClipboard(ev) {
         ev?.preventDefault?.();
-        const text = [
-            this.props.name,
-            "",
-            this.props.message,
-            "",
-            this.contextDetails,
-            "",
-            this.traceback ?? this.props.traceback ?? "",
-        ].join("\n");
+        const text = buildText({
+            name: this.props.name,
+            message: this.props.message,
+            contextDetails: this.contextDetails,
+            traceback: this.traceback ?? this.props.traceback,
+        });
         try {
             await safeCopy(text);
             this.showTooltip?.();
         } catch (err) {
             // If everything fails, at least avoid throwing in the dialog
+            console.warn("Clipboard copy failed", err);
+        }
+    },
+});
+
+patch(RPCErrorDialog.prototype, {
+    async onClickClipboard(ev) {
+        ev?.preventDefault?.();
+        const text = buildText({
+            name: this.props.name,
+            message: this.props.message,
+            contextDetails: this.props.contextDetails || this.contextDetails,
+            traceback: this.props.traceback,
+        });
+        try {
+            await safeCopy(text);
+            this.showTooltip?.();
+        } catch (err) {
             console.warn("Clipboard copy failed", err);
         }
     },

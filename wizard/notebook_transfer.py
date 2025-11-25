@@ -87,11 +87,14 @@ class NotebookImportWizard(models.TransientModel):
         )
 
         for cell in payload.get("cells", []):
+            cell_type = cell.get("cell_type") or "richtext"
+            if cell_type == "markdown":
+                cell_type = "richtext"
             self.env["devops.notebook.cell"].create(
                 {
                     "notebook_id": notebook.id,
                     "sequence": cell.get("sequence") or 10,
-                    "cell_type": cell.get("cell_type") or "markdown",
+                    "cell_type": cell_type,
                     "input_source": cell.get("input_source") or "",
                 }
             )
